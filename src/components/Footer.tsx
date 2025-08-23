@@ -56,11 +56,11 @@ const Footer: React.FC = () => {
                 <ExternalLink className="w-4 h-4" />
                 <span>Event Details</span>
               </a>
-              <a href="#registration" className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors duration-200">
+              <a href="https://eventhubcc.vit.ac.in/EventHub/eventPreview?id=0&categoryType=&eid=222" className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors duration-200">
                 <ExternalLink className="w-4 h-4" />
                 <span>Registration</span>
               </a>
-              <a href="https://vit.ac.in" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors duration-200">
+              <a href="https://chennai.vit.ac.in/" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-colors duration-200">
                 <ExternalLink className="w-4 h-4" />
                 <span>VIT Chennai</span>
               </a>

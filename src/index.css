@@ -6,10 +6,10 @@
 @layer utilities {
   .cyber-text-outline {
     text-shadow: 
-      -1px -1px 0 rgba(0, 217, 255, 0.5),
-      1px -1px 0 rgba(0, 217, 255, 0.5),
-      -1px 1px 0 rgba(0, 217, 255, 0.5),
-      1px 1px 0 rgba(0, 217, 255, 0.5);
+  -1px -1px 0 rgba(0, 255, 110, 0.5),
+  1px -1px 0 rgba(0, 255, 110, 0.5),
+  -1px 1px 0 rgba(0, 255, 110, 0.5),
+  1px 1px 0 rgba(0, 255, 110, 0.5);
   }
   
   .cyber-text-glow {
@@ -32,7 +32,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 110, 0.08), transparent);
     transition: left 0.5s;
   }
   
@@ -67,8 +67,8 @@
   
   .cyber-input:focus {
     box-shadow: 
-      0 0 0 1px rgba(0, 217, 255, 0.5),
-      0 0 10px rgba(0, 217, 255, 0.2);
+  0 0 0 1px rgba(0, 255, 110, 0.5),
+  0 0 10px rgba(0, 255, 110, 0.18);
   }
   
   .cyber-input-group label {
@@ -77,7 +77,7 @@
   
   .cyber-input:focus + label,
   .cyber-input-group:focus-within label {
-    color: rgb(0, 217, 255);
+  color: rgb(0, 255, 110);
   }
   
   .cyber-checkbox {
@@ -92,7 +92,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 110, 0.08), transparent);
     transition: left 0.3s;
   }
   
@@ -119,12 +119,12 @@
   }
   
   .terminal-body::-webkit-scrollbar-thumb {
-    background: rgba(0, 217, 255, 0.5);
+  background: rgba(0, 255, 110, 0.45);
     border-radius: 4px;
   }
   
   .terminal-body::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 217, 255, 0.7);
+  background: rgba(0, 255, 110, 0.65);
   }
   
   .terminal-input input {
@@ -133,15 +133,15 @@
 
   .cyber-terminal {
     box-shadow:
-      0 0 20px rgba(0, 217, 255, 0.3),
-      inset 0 0 20px rgba(0, 217, 255, 0.1);
+  0 0 20px rgba(0, 255, 110, 0.28),
+  inset 0 0 20px rgba(0, 255, 110, 0.08);
   }
 
   .cyber-terminal:focus {
     outline: none;
     box-shadow:
-      0 0 30px rgba(0, 217, 255, 0.5),
-      inset 0 0 30px rgba(0, 217, 255, 0.2);
+  0 0 30px rgba(0, 255, 110, 0.45),
+  inset 0 0 30px rgba(0, 255, 110, 0.12);
   }
 
   .terminal-body pre {
@@ -214,11 +214,11 @@ html {
 
 /* Custom selection colors */
 ::selection {
-  background: rgba(0, 217, 255, 0.3);
+  background: rgba(0, 255, 110, 0.28);
   color: white;
 }
 
 ::-moz-selection {
-  background: rgba(0, 217, 255, 0.3);
+  background: rgba(0, 255, 110, 0.28);
   color: white;
 }

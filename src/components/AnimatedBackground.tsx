@@ -51,11 +51,11 @@ const AnimatedBackground: React.FC = () => {
     <div className="fixed inset-0 z-0">
       {/* Grid Pattern */}
       <div 
-        className="absolute inset-0 opacity-10"
+        className="absolute inset-0 opacity-12"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(0, 217, 255, 0.2) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 217, 255, 0.2) 1px, transparent 1px)
+            linear-gradient(rgba(0, 255, 110, 0.18) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 110, 0.18) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px'
         }}
@@ -65,19 +65,19 @@ const AnimatedBackground: React.FC = () => {
       {particles.map(particle => (
         <div
           key={particle.id}
-          className="absolute bg-cyan-400 rounded-full opacity-60"
+          className="absolute bg-emerald-400 rounded-full opacity-70"
           style={{
             left: particle.x,
             top: particle.y,
             width: particle.size,
             height: particle.size,
-            boxShadow: `0 0 ${particle.size * 2}px rgba(0, 217, 255, 0.5)`,
+            boxShadow: `0 0 ${particle.size * 2}px rgba(0, 255, 110, 0.45)`,
           }}
         />
       ))}
       
       {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-cyan-900/20" />
+  <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-emerald-700/18" />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Clock, Users, Shield, Target, Code, Zap, Coffee, Award, Cpu, Eye, Lock, Flame, Terminal, Network, Bug, UserCheck } from 'lucide-react';
+import { Users, Shield, Target, Code, Zap, Coffee, Award, Eye, Lock, Flame, Terminal, Network, Bug, UserCheck } from 'lucide-react';
 
 interface TimelineEvent {
   time: string;
@@ -141,8 +141,8 @@ const Timeline: React.FC = () => {
 
   const getEventTypeColor = (type: string) => {
     switch (type) {
-      case 'workshop': return 'from-purple-400 to-pink-400';
-      case 'session': return 'from-cyan-400 to-blue-400';
+      case 'workshop': return 'from-emerald-500 to-emerald-700';
+      case 'session': return 'from-emerald-400 to-emerald-600';
       case 'break': return 'from-orange-400 to-red-400';
       case 'networking': return 'from-green-400 to-teal-400';
       case 'competition': return 'from-red-400 to-pink-400';
@@ -152,8 +152,8 @@ const Timeline: React.FC = () => {
 
   const getEventTypeBorder = (type: string) => {
     switch (type) {
-      case 'workshop': return 'border-purple-400/50';
-      case 'session': return 'border-cyan-400/50';
+      case 'workshop': return 'border-emerald-500/50';
+      case 'session': return 'border-emerald-400/50';
       case 'break': return 'border-orange-400/50';
       case 'networking': return 'border-green-400/50';
       case 'competition': return 'border-red-400/50';
@@ -165,7 +165,7 @@ const Timeline: React.FC = () => {
     <div className="relative">
       {/* Section Header */}
       <div className="text-center mb-16">
-        <h3 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-6">
+  <h3 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-700 mb-6">
           Event Timeline
         </h3>
         <p className="text-gray-300 text-lg max-w-2xl mx-auto">
@@ -181,7 +181,7 @@ const Timeline: React.FC = () => {
               onClick={() => setActiveDay(1)}
               className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${
                 activeDay === 1
-                  ? 'bg-gradient-to-r from-cyan-400 to-purple-400 text-black shadow-lg shadow-cyan-400/25'
+                  ? 'bg-gradient-to-r from-emerald-400 to-emerald-700 text-black shadow-lg shadow-emerald-400/25'
                   : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
               }`}
             >
@@ -191,7 +191,7 @@ const Timeline: React.FC = () => {
               onClick={() => setActiveDay(2)}
               className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${
                 activeDay === 2
-                  ? 'bg-gradient-to-r from-cyan-400 to-purple-400 text-black shadow-lg shadow-cyan-400/25'
+                  ? 'bg-gradient-to-r from-emerald-400 to-emerald-700 text-black shadow-lg shadow-emerald-400/25'
                   : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
               }`}
             >
@@ -204,7 +204,7 @@ const Timeline: React.FC = () => {
       {/* Timeline Container */}
       <div className="relative max-w-6xl mx-auto">
         {/* Central Timeline Line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-cyan-400 via-purple-400 to-pink-400 h-full rounded-full opacity-60"></div>
+  <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-emerald-400 via-emerald-600 to-lime-400 h-full rounded-full opacity-60"></div>
         
         {/* Timeline Events */}
         <div className="space-y-12">
@@ -216,7 +216,7 @@ const Timeline: React.FC = () => {
               }`}
             >
               {/* Timeline Node */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full border-4 border-gray-900 z-10 shadow-lg shadow-cyan-400/50"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-emerald-400 to-emerald-700 rounded-full border-4 border-gray-900 z-10 shadow-lg shadow-emerald-400/50"></div>
               
               {/* Event Card */}
               <div className={`w-5/12 ${index % 2 === 0 ? 'pr-12' : 'pl-12'}`}>
@@ -232,12 +232,12 @@ const Timeline: React.FC = () => {
                       )}
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-mono text-cyan-400 mb-2">{event.time}</div>
+                      <div className="text-sm font-mono text-emerald-400 mb-2">{event.time}</div>
                       <h4 className="text-xl font-bold text-white mb-3">{event.title}</h4>
                       <p className="text-gray-300 leading-relaxed">{event.description}</p>
                       <div className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold ${
-                        event.type === 'workshop' ? 'bg-purple-400/20 text-purple-400' :
-                        event.type === 'session' ? 'bg-cyan-400/20 text-cyan-400' :
+                        event.type === 'workshop' ? 'bg-emerald-500/20 text-emerald-500' :
+                          event.type === 'session' ? 'bg-emerald-400/20 text-emerald-400' :
                         event.type === 'break' ? 'bg-orange-400/20 text-orange-400' :
                         event.type === 'networking' ? 'bg-green-400/20 text-green-400' :
                         event.type === 'competition' ? 'bg-red-400/20 text-red-400' :
@@ -268,13 +268,13 @@ const Timeline: React.FC = () => {
         </div>
 
         {/* Timeline End Marker */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-8 h-8 bg-gradient-to-r from-pink-400 to-red-400 rounded-full border-4 border-gray-900 shadow-lg shadow-pink-400/50"></div>
+  <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-8 h-8 bg-gradient-to-r from-lime-400 to-emerald-500 rounded-full border-4 border-gray-900 shadow-lg shadow-emerald-400/50"></div>
       </div>
 
       {/* Day Summary */}
       <div className="mt-16 text-center">
-        <div className="cyber-card inline-block p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-cyan-400/30 rounded-2xl backdrop-blur-sm">
-          <h4 className="text-2xl font-bold text-cyan-400 mb-4">
+        <div className="cyber-card inline-block p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-emerald-400/30 rounded-2xl backdrop-blur-sm">
+          <h4 className="text-2xl font-bold text-emerald-400 mb-4">
             {activeDay === 1 ? 'Day 1 Focus' : 'Day 2 Focus'}
           </h4>
           <p className="text-gray-300 max-w-2xl">

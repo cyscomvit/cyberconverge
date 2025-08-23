@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
-import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target, Calendar, ChevronDown, ChevronRight } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
-const Registration: React.FC = () => {
+interface RegistrationProps {
+  selectedDay?: 'day1' | 'day2';
+}
+
+const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
+    email: user?.email || '',
     phone: '',
     college: '',
     year: '',
     branch: '',
-    interests: []
+    interests: [],
+    day: selectedDay || ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState('');
+
+  useEffect(() => {
+    if (user?.email) {
+      setFormData(prev => ({ ...prev, email: user.email || '' }));
+    }
+    if (selectedDay) {
+      setFormData(prev => ({ ...prev, day: selectedDay }));
+    }
+  }, [user, selectedDay]);
 
   const interests = [
     { name: 'Penetration Testing', icon: Target, color: 'red' },
@@ -56,19 +72,19 @@ const Registration: React.FC = () => {
     return (
       <section id="registration" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-green-400/10 to-cyan-400/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-400/10 to-emerald-200/6 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-emerald-500/8 to-lime-400/8 rounded-full blur-3xl"></div>
         </div>
         
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="cyber-card p-16 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-green-400/50 rounded-3xl backdrop-blur-sm transform hover:scale-105 transition-all duration-700">
             <div className="relative">
-              <div className="absolute -top-8 -right-8 w-16 h-16 border-2 border-green-400/30 rounded-full animate-pulse"></div>
-              <div className="absolute -bottom-8 -left-8 w-12 h-12 border-2 border-cyan-400/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute -top-8 -right-8 w-16 h-16 border-2 border-emerald-400/30 rounded-full animate-pulse"></div>
+              <div className="absolute -bottom-8 -left-8 w-12 h-12 border-2 border-emerald-400/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
               
               <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-8" />
               <h2 className="text-4xl font-bold text-white mb-6">
-                <span className="cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">
+                <span className="cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-lime-300">
                   Registration Complete!
                 </span>
               </h2>
@@ -77,25 +93,25 @@ const Registration: React.FC = () => {
                 event details, access credentials, and exclusive pre-event materials.
               </p>
               
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="p-4 bg-green-400/10 rounded-xl border border-green-400/20">
-                  <Zap className="w-8 h-8 text-green-400 mx-auto mb-2" />
-                  <div className="text-sm text-green-400 font-semibold">Instant Access</div>
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="p-4 bg-emerald-400/10 rounded-xl border border-emerald-400/20">
+                  <Zap className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
+                  <div className="text-sm text-emerald-400 font-semibold">Instant Access</div>
                   <div className="text-xs text-gray-400">CTF Platform Ready</div>
                 </div>
-                <div className="p-4 bg-cyan-400/10 rounded-xl border border-cyan-400/20">
-                  <Shield className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
-                  <div className="text-sm text-cyan-400 font-semibold">VIP Materials</div>
+                <div className="p-4 bg-emerald-400/10 rounded-xl border border-emerald-400/20">
+                  <Shield className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
+                  <div className="text-sm text-emerald-400 font-semibold">VIP Materials</div>
                   <div className="text-xs text-gray-400">Exclusive Resources</div>
                 </div>
-                <div className="p-4 bg-purple-400/10 rounded-xl border border-purple-400/20">
-                  <Target className="w-8 h-8 text-purple-400 mx-auto mb-2" />
-                  <div className="text-sm text-purple-400 font-semibold">Priority Support</div>
+                <div className="p-4 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
+                  <Target className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
+                  <div className="text-sm text-emerald-500 font-semibold">Priority Support</div>
                   <div className="text-xs text-gray-400">Direct Expert Access</div>
                 </div>
               </div>
               
-              <div className="inline-block px-10 py-4 bg-gradient-to-r from-green-400 to-cyan-400 text-black font-bold rounded-2xl text-lg transform hover:scale-105 transition-all duration-300">
+              <div className="inline-block px-10 py-4 bg-gradient-to-r from-emerald-400 to-lime-300 text-black font-bold rounded-2xl text-lg transform hover:scale-105 transition-all duration-300">
                 See you at CyberConverge 2025! 🚀
               </div>
             </div>
@@ -109,9 +125,9 @@ const Registration: React.FC = () => {
     <section id="registration" className="relative z-10 py-32 px-4 sm:px-6 lg:px-8">
       {/* Complex Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 right-1/4 w-80 h-80 bg-gradient-to-br from-cyan-400/5 to-purple-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-40 left-1/3 w-96 h-96 bg-gradient-to-tl from-purple-400/5 to-pink-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 right-10 w-64 h-64 bg-gradient-to-r from-green-400/5 to-cyan-400/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-1/4 w-80 h-80 bg-gradient-to-br from-emerald-400/5 to-emerald-200/6 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-40 left-1/3 w-96 h-96 bg-gradient-to-tl from-emerald-500/6 to-lime-400/6 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-10 w-64 h-64 bg-gradient-to-r from-emerald-400/5 to-lime-300/6 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative max-w-6xl mx-auto">
@@ -120,17 +136,38 @@ const Registration: React.FC = () => {
           <div className="relative inline-block">
             <h2 className="text-6xl sm:text-7xl font-black mb-6 leading-none">
               <span className="block text-white transform -rotate-2">JOIN THE</span>
-              <span className="block cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 transform rotate-2 -mt-4">
+              <span className="block cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300 transform rotate-2 -mt-4">
                 REVOLUTION
               </span>
             </h2>
-            <div className="absolute -top-12 -right-16 w-32 h-32 border-2 border-cyan-400/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
-            <div className="absolute -bottom-8 -left-12 w-20 h-20 border-2 border-purple-400/20 rounded-full animate-pulse"></div>
+            <div className="absolute -top-12 -right-16 w-32 h-32 border-2 border-emerald-400/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute -bottom-8 -left-12 w-20 h-20 border-2 border-emerald-500/20 rounded-full animate-pulse"></div>
           </div>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mt-8 leading-relaxed">
             Secure your spot in the most anticipated cybersecurity event of the year. 
             Limited seats available for this exclusive experience.
           </p>
+          
+          {/* Day Selection Indicator */}
+          {selectedDay && (
+            <div className="mt-8 flex justify-center">
+              <div className={`inline-flex items-center px-8 py-4 rounded-2xl border backdrop-blur-sm ${
+                selectedDay === 'day1' 
+                  ? 'bg-emerald-400/20 border-emerald-400/40 text-emerald-400' 
+                  : 'bg-cyan-400/20 border-cyan-400/40 text-cyan-400'
+              }`}>
+                <Calendar className="w-6 h-6 mr-3" />
+                <div>
+                  <div className="font-bold text-lg">
+                    {selectedDay === 'day1' ? 'Day 1 Registration' : 'Day 2 Registration'}
+                  </div>
+                  <div className="text-sm opacity-80">
+                    {selectedDay === 'day1' ? 'August 28, 2025' : 'August 29, 2025'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Dynamic Form Layout */}
@@ -140,14 +177,14 @@ const Registration: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Personal Info Section */}
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm transform hover:scale-[1.01] transition-all duration-500">
-                <h3 className="text-2xl font-bold text-cyan-400 mb-8 flex items-center">
+                <h3 className="text-2xl font-bold text-emerald-400 mb-8 flex items-center">
                   <User className="w-6 h-6 mr-3" />
                   Personal Information
                 </h3>
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="cyber-input-group">
-                    <label className="block text-cyan-400 font-medium mb-3">
+                    <label className="block text-emerald-400 font-medium mb-3">
                       Full Name *
                     </label>
                     <input
@@ -160,7 +197,7 @@ const Registration: React.FC = () => {
                       required
                       className={`cyber-input w-full px-6 py-4 bg-gray-900/50 border-2 rounded-xl text-white placeholder-gray-400 focus:outline-none transition-all duration-300 ${
                         focusedField === 'name' 
-                          ? 'border-cyan-400 shadow-lg shadow-cyan-400/25' 
+                          ? 'border-emerald-400 shadow-lg shadow-emerald-400/25' 
                           : 'border-gray-600 hover:border-gray-500'
                       }`}
                       placeholder="Enter your full name"
@@ -168,28 +205,25 @@ const Registration: React.FC = () => {
                   </div>
 
                   <div className="cyber-input-group">
-                    <label className="block text-cyan-400 font-medium mb-3">
+                    <label className="block text-emerald-400 font-medium mb-3 flex items-center">
+                      <Mail className="w-4 h-4 mr-2" />
                       Email Address *
+                      <span className="ml-2 text-xs bg-emerald-400/20 text-emerald-400 px-2 py-1 rounded">Auto-filled</span>
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
-                      onChange={handleInputChange}
-                      onFocus={() => setFocusedField('email')}
-                      onBlur={() => setFocusedField('')}
-                      required
-                      className={`cyber-input w-full px-6 py-4 bg-gray-900/50 border-2 rounded-xl text-white placeholder-gray-400 focus:outline-none transition-all duration-300 ${
-                        focusedField === 'email' 
-                          ? 'border-cyan-400 shadow-lg shadow-cyan-400/25' 
-                          : 'border-gray-600 hover:border-gray-500'
-                      }`}
+                      readOnly
+                      disabled
+                      className="cyber-input w-full px-6 py-4 bg-gray-800/50 border-2 rounded-xl text-gray-300 border-gray-500 cursor-not-allowed"
                       placeholder="your.email@domain.com"
                     />
+                    <p className="text-xs text-gray-400 mt-2">Email automatically filled from your Google account</p>
                   </div>
 
                   <div className="cyber-input-group">
-                    <label className="block text-cyan-400 font-medium mb-3">
+                    <label className="block text-emerald-400 font-medium mb-3">
                       Phone Number *
                     </label>
                     <input
@@ -202,7 +236,7 @@ const Registration: React.FC = () => {
                       required
                       className={`cyber-input w-full px-6 py-4 bg-gray-900/50 border-2 rounded-xl text-white placeholder-gray-400 focus:outline-none transition-all duration-300 ${
                         focusedField === 'phone' 
-                          ? 'border-cyan-400 shadow-lg shadow-cyan-400/25' 
+                          ? 'border-emerald-400 shadow-lg shadow-emerald-400/25' 
                           : 'border-gray-600 hover:border-gray-500'
                       }`}
                       placeholder="+91 XXXXX XXXXX"
@@ -210,7 +244,7 @@ const Registration: React.FC = () => {
                   </div>
 
                   <div className="cyber-input-group">
-                    <label className="block text-cyan-400 font-medium mb-3">
+                    <label className="block text-emerald-400 font-medium mb-3">
                       College/University *
                     </label>
                     <input
@@ -223,7 +257,7 @@ const Registration: React.FC = () => {
                       required
                       className={`cyber-input w-full px-6 py-4 bg-gray-900/50 border-2 rounded-xl text-white placeholder-gray-400 focus:outline-none transition-all duration-300 ${
                         focusedField === 'college' 
-                          ? 'border-cyan-400 shadow-lg shadow-cyan-400/25' 
+                          ? 'border-emerald-400 shadow-lg shadow-emerald-400/25' 
                           : 'border-gray-600 hover:border-gray-500'
                       }`}
                       placeholder="Your institution name"
@@ -234,14 +268,14 @@ const Registration: React.FC = () => {
 
               {/* Academic Info Section */}
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm transform hover:scale-[1.01] transition-all duration-500">
-                <h3 className="text-2xl font-bold text-purple-400 mb-8 flex items-center">
+                <h3 className="text-2xl font-bold text-emerald-500 mb-8 flex items-center">
                   <GraduationCap className="w-6 h-6 mr-3" />
                   Academic Details
                 </h3>
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="cyber-input-group">
-                    <label className="block text-purple-400 font-medium mb-3">Year of Study *</label>
+                    <label className="block text-emerald-500 font-medium mb-3">Year of Study *</label>
                     <select
                       name="year"
                       value={formData.year}
@@ -251,7 +285,7 @@ const Registration: React.FC = () => {
                       required
                       className={`cyber-input w-full px-6 py-4 bg-gray-900/50 border-2 rounded-xl text-white focus:outline-none transition-all duration-300 ${
                         focusedField === 'year' 
-                          ? 'border-purple-400 shadow-lg shadow-purple-400/25' 
+                          ? 'border-emerald-500 shadow-lg shadow-emerald-500/25' 
                           : 'border-gray-600 hover:border-gray-500'
                       }`}
                     >
@@ -266,7 +300,7 @@ const Registration: React.FC = () => {
                   </div>
 
                   <div className="cyber-input-group">
-                    <label className="block text-purple-400 font-medium mb-3">Branch/Major *</label>
+                    <label className="block text-emerald-500 font-medium mb-3">Branch/Major *</label>
                     <input
                       type="text"
                       name="branch"
@@ -277,7 +311,7 @@ const Registration: React.FC = () => {
                       required
                       className={`cyber-input w-full px-6 py-4 bg-gray-900/50 border-2 rounded-xl text-white placeholder-gray-400 focus:outline-none transition-all duration-300 ${
                         focusedField === 'branch' 
-                          ? 'border-purple-400 shadow-lg shadow-purple-400/25' 
+                          ? 'border-emerald-500 shadow-lg shadow-emerald-500/25' 
                           : 'border-gray-600 hover:border-gray-500'
                       }`}
                       placeholder="e.g., Computer Science, IT, etc."
@@ -288,7 +322,7 @@ const Registration: React.FC = () => {
 
               {/* Interests Section */}
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm transform hover:scale-[1.01] transition-all duration-500">
-                <h3 className="text-2xl font-bold text-green-400 mb-8">Areas of Interest</h3>
+                <h3 className="text-2xl font-bold text-emerald-400 mb-8">Areas of Interest</h3>
                 <p className="text-gray-400 mb-6">Select all areas that excite you (multiple selections encouraged)</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -327,7 +361,7 @@ const Registration: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="cyber-button group inline-flex items-center px-12 py-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 text-black font-bold text-xl rounded-2xl hover:from-cyan-300 hover:via-purple-300 hover:to-pink-300 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-500 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-2xl shadow-cyan-400/25"
+                  className="cyber-button group inline-flex items-center px-12 py-6 bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300 text-black font-bold text-xl rounded-2xl hover:from-emerald-300 hover:via-emerald-500 hover:to-lime-200 focus:outline-none focus:ring-4 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-500 transform hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-2xl shadow-emerald-400/25"
                 >
                   {isSubmitting ? (
                     <>
