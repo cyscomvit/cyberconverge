@@ -45,8 +45,8 @@ const EventInfo: React.FC = () => {
                   <div className="cyber-card p-6 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-emerald-500/30 rounded-2xl backdrop-blur-sm transform rotate-3 hover:rotate-0 transition-all duration-700">
                   <div className="text-center">
                     <Award className="w-8 h-8 text-emerald-500 mx-auto mb-3" />
-                    <div className="text-2xl font-bold text-white">₹50,000</div>
-                    <div className="text-sm text-emerald-500">Total Prizes</div>
+                    <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300">National Cyber Security Summit</div>
+                    <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-sm font-semibold">Flagship Summit</div>
                   </div>
                 </div>
               </div>
@@ -94,16 +94,16 @@ const EventInfo: React.FC = () => {
             </h3>
             <div className="grid md:grid-cols-3 gap-8 mt-8">
               <div className="text-center">
-                <div className="text-4xl font-bold text-cyan-400 mb-2">300+</div>
-                <div className="text-gray-300">Participants Expected</div>
+                <div className="text-4xl font-bold text-cyan-400 mb-2">₹90,000</div>
+                <div className="text-gray-300">Prize Worth</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-purple-400 mb-2">3+</div>
+                <div className="text-4xl font-bold text-purple-400 mb-2">15+</div>
                 <div className="text-gray-300">Industry Speakers</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-green-400 mb-2">8hrs</div>
-                <div className="text-gray-300">Of Learning</div>
+                <div className="text-4xl font-bold text-green-400 mb-2">48hrs</div>
+                <div className="text-gray-300">Non-stop Action</div>
               </div>
             </div>
           </div>
