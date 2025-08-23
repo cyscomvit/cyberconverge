@@ -8,7 +8,7 @@ import DaySelection from '../components/DaySelection';
 const RegistrationPage: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [selectedDay, setSelectedDay] = useState<'day1' | 'day2' | null>(null);
+  const [selectedDay, setSelectedDay] = useState<'day1' | 'day2' | 'both' | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -23,7 +23,7 @@ const RegistrationPage: React.FC = () => {
     navigate('/');
   };
 
-  const handleDaySelect = (day: 'day1' | 'day2') => {
+  const handleDaySelect = (day: 'day1' | 'day2' | 'both') => {
     setSelectedDay(day);
   };
 
@@ -114,7 +114,7 @@ const RegistrationPage: React.FC = () => {
                   Welcome, {user?.displayName?.split(' ')[0]}!
                 </p>
                 <p className="text-gray-400 text-xs">
-                  Registering for {selectedDay === 'day1' ? 'Offensive Security' : 'Defensive Security'}
+                  Registering for {selectedDay === 'day1' ? 'Offensive Security' : (selectedDay === 'day2' ? 'Defensive Security' : 'Both Days')}
                 </p>
               </div>
             </div>

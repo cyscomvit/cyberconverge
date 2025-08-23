@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, Clock, Users, Target, Shield, ChevronRight, Zap } from 'lucide-react';
 
 interface DaySelectionProps {
-  onDaySelect: (day: 'day1' | 'day2') => void;
+  onDaySelect: (day: 'day1' | 'day2' | 'both') => void;
 }
 
 const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
@@ -90,6 +90,34 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
             CyberConverge 2025 offers two specialized tracks. Click on each day to explore detailed content 
             and register for your preferred security specialization.
           </p>
+        </div>
+
+        {/* Prominent CTA: Register Both Days (primary action) */}
+        <div className="mb-10">
+          <div className="cyber-card relative overflow-hidden p-8 rounded-3xl bg-gradient-to-br from-emerald-500 to-lime-300 text-black shadow-2xl border border-emerald-400/30">
+            <div className="grid md:grid-cols-3 gap-6 items-center">
+              <div className="md:col-span-2">
+                <h2 className="text-4xl font-extrabold">Register for Both Days — Full Track</h2>
+                <p className="mt-2 text-lg text-black/80 max-w-2xl">Get the complete CyberConverge experience: offensive and defensive tracks, full access to labs, materials, and priority support. One signup — both days covered.</p>
+
+                <div className="mt-6 flex items-center gap-4">
+                  <button
+                    onClick={() => onDaySelect('both')}
+                    className="px-8 py-4 bg-black text-emerald-300 font-bold rounded-2xl text-xl shadow-lg hover:scale-105 transform transition-all duration-200"
+                    aria-label="Register for both days"
+                  >
+                    Register for Both Days
+                  </button>
+
+                  {/* <a href="#" className="px-4 py-3 bg-black/10 text-black/80 rounded-lg font-medium hover:bg-black/20">Why both?</a> */}
+                </div>
+              </div>
+
+              <div className="hidden md:flex items-center justify-center">
+                <img src="/cyscom.png" alt="Both days" />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Day Selection Cards */}
@@ -222,11 +250,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <div className="inline-flex items-center px-6 py-3 bg-gray-800/50 border border-gray-600 rounded-full">
-            <span className="text-gray-400 mr-2">Can't decide?</span>
-            <span className="text-emerald-400 font-semibold">Register for both days!</span>
-            <span className="ml-2 text-gray-400">Complete your cybersecurity journey.</span>
-          </div>
+          
         </div>
       </div>
     </section>

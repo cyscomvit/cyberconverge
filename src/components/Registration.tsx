@@ -5,7 +5,7 @@ import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
 interface RegistrationProps {
-  selectedDay: 'day1' | 'day2';
+  selectedDay: 'day1' | 'day2' | 'both';
   onBack: () => void;
 }
 
@@ -24,32 +24,11 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState('');
+  const [showDay1InstructionAfterBoth, setShowDay1InstructionAfterBoth] = useState(false);
 
-  // Get interests based on selected day
-  const getInterestsForDay = (day: 'day1' | 'day2') => {
-    const day1Interests = [
-      { name: 'Penetration Testing', icon: Target, color: 'red' },
-      { name: 'Web Security', icon: '🌍', color: 'blue' },
-      { name: 'Network Security', icon: '🌐', color: 'green' },
-      { name: 'Social Engineering', icon: '🎭', color: 'purple' },
-      { name: 'OSINT Gathering', icon: '🔍', color: 'cyan' }
-    ];
+  // Interests removed - no longer using interest selections
 
-    const day2Interests = [
-      { name: 'Digital Forensics', icon: '🔍', color: 'purple' },
-      { name: 'Cryptography', icon: '🔐', color: 'yellow' },
-      { name: 'Malware Analysis', icon: '🦠', color: 'red' },
-      { name: 'Mobile Security', icon: '📱', color: 'purple' },
-      { name: 'IoT Security', icon: '�', color: 'cyan' },
-      { name: 'Incident Response', icon: '🚨', color: 'orange' }
-    ];
-
-    return day === 'day1' ? day1Interests : day2Interests;
-  };
-
-  const interests = getInterestsForDay(selectedDay);
-
-  const getDayInfo = (day: 'day1' | 'day2') => {
+  const getDayInfo = (day: 'day1' | 'day2' | 'both') => {
     const dayInfo = {
       day1: {
         title: 'Day 1: Offensive Security',
@@ -66,7 +45,17 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
         topics: ['Digital Forensics', 'Malware Analysis', 'Incident Response', 'Security Monitoring']
       }
     };
-    return dayInfo[day];
+    if (day === 'both') {
+      return {
+        title: 'Both Days: Full Registration',
+        date: `${dayInfo.day1.date} & ${dayInfo.day2.date}`,
+        description: 'Register for both tracks and receive instructions for Day 1 after submission',
+        color: 'emerald',
+        topics: [...dayInfo.day1.topics, ...dayInfo.day2.topics]
+      };
+    }
+
+    return dayInfo[day as 'day1' | 'day2'];
   };
 
   const currentDayInfo = getDayInfo(selectedDay);
@@ -76,14 +65,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleInterestChange = (interest: string) => {
-    setFormData(prev => ({
-      ...prev,
-      interests: prev.interests.includes(interest as never)
-        ? prev.interests.filter((i: string) => i !== interest)
-        : [...prev.interests, interest as never]
-    }));
-  };
+  // interests are no longer collected for Day 2 / Both
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,14 +84,21 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
         timestamp: new Date()
       };
       
-      // Save to the appropriate collection (day1 or day2)
-      const collectionName = selectedDay === 'day1' ? 'day1' : 'day2';
-      const docRef = await addDoc(collection(db, collectionName), submissionData);
-      
-      console.log('Registration saved with ID: ', docRef.id);
-      console.log('Submitted to collection:', collectionName);
-      
-      setIsSubmitted(true);
+      // Save to appropriate collection(s)
+      if (selectedDay === 'both') {
+        // Write to both collections
+        const docRef1 = await addDoc(collection(db, 'day1'), submissionData);
+        const docRef2 = await addDoc(collection(db, 'day2'), submissionData);
+        console.log('Submitted to both collections:', docRef1.id, docRef2.id);
+        // After registering for both, show Day 1 instructions panel
+        setShowDay1InstructionAfterBoth(true);
+      } else {
+        const collectionName = selectedDay === 'day1' ? 'day1' : 'day2';
+        const docRef = await addDoc(collection(db, collectionName), submissionData);
+        console.log('Registration saved with ID: ', docRef.id);
+        console.log('Submitted to collection:', collectionName);
+        setIsSubmitted(true);
+      }
     } catch (error) {
       console.error('Error saving registration:', error);
       // You might want to show an error message to the user
@@ -148,8 +137,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                 </p>
               </div>
               <p className="text-gray-300 text-xl mb-8 leading-relaxed">
-                Welcome to the CyberConverge family! You'll receive a confirmation email with 
-                event details, access credentials, and exclusive pre-event materials.
+                Welcome to the CyberConverge family!
               </p>
               
               <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -229,7 +217,26 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
         <div className="grid lg:grid-cols-12 gap-8">
           {/* Main Form - Spans 8 columns */}
           <div className="lg:col-span-8">
-            <form onSubmit={handleSubmit} className="space-y-8">
+
+            {(selectedDay === 'day1' || showDay1InstructionAfterBoth) ? (
+              <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm">
+                <h3 className="text-2xl font-bold text-emerald-400 mb-4">CyberConverge Day 1 Instructions</h3>
+                <p className="text-gray-300 mb-4">Please use VIT Chennai Event Hub to register for Day 1.</p>
+                <ul className="list-disc list-inside text-sm text-gray-300 space-y-2">
+                  <li>Create an account / Log in using existing account <span className="text-cyan-300"><a href="https://eventhubcc.vit.ac.in/EventHub/login"><u>here</u></a></span> and return to this page.</li>
+                  <img
+                    src="/signup.png"
+                    alt="Day 1 - Offensive Security"
+                  />
+                  <li>After Successful login use <span className="font-medium text-emerald-300"><a href="https://eventhubcc.vit.ac.in/EventHub/eventPreview?id=0&categoryType=&eid=222"><u>this link</u></a></span> to register for Day 1 of CyberConverge.</li>
+                  <li>If you face any problems, Contact us on WhatsApp at <span className="text-cyan-300">9324384817</span> for assistance.</li>
+                </ul>
+                <div className="mt-6">
+                  <button onClick={onBack} className="px-6 py-3 bg-emerald-400 text-black rounded-lg font-semibold">Back to Day Selection</button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
               {/* Personal Info Section */}
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm transform hover:scale-[1.01] transition-all duration-500">
                 <h3 className="text-2xl font-bold text-emerald-400 mb-8 flex items-center">
@@ -377,41 +384,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                 </div>
               </div>
 
-              {/* Interests Section */}
-              <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm transform hover:scale-[1.01] transition-all duration-500">
-                <h3 className="text-2xl font-bold text-emerald-400 mb-8">Areas of Interest</h3>
-                <p className="text-gray-400 mb-6">Select all areas that excite you (multiple selections encouraged)</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {interests.map((interest, index) => (
-                    <label
-                      key={interest.name}
-                      className={`cyber-checkbox group flex items-center p-4 rounded-xl border cursor-pointer transition-all duration-300 transform hover:scale-105 ${
-                        formData.interests.includes(interest.name as never)
-                          ? `bg-${interest.color}-400/20 border-${interest.color}-400 text-${interest.color}-400 shadow-lg shadow-${interest.color}-400/25`
-                          : 'bg-gray-900/50 border-gray-600 text-gray-300 hover:border-gray-500'
-                      } ${
-                        index % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1'
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={formData.interests.includes(interest.name as never)}
-                        onChange={() => handleInterestChange(interest.name)}
-                        className="sr-only"
-                      />
-                      <div className="flex items-center space-x-3">
-                        {typeof interest.icon === 'string' ? (
-                          <span className="text-2xl">{interest.icon}</span>
-                        ) : (
-                          <interest.icon className="w-5 h-5" />
-                        )}
-                        <span className="font-medium">{interest.name}</span>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </div>
+              {/* Interests removed for Day 2 / Both registration per request */}
 
               {/* Submit Button */}
               <div className="text-center">
@@ -435,6 +408,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                 </button>
               </div>
             </form>
+            )}
           </div>
 
           {/* Side Info Panel - Spans 4 columns */}
