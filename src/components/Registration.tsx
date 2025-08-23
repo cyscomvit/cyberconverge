@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target } from 'lucide-react';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -25,6 +25,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState('');
   const [showDay1InstructionAfterBoth, setShowDay1InstructionAfterBoth] = useState(false);
+  const [alreadyRegisteredDay2, setAlreadyRegisteredDay2] = useState(false);
 
   // Interests removed - no longer using interest selections
 
@@ -72,6 +73,27 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
     setIsSubmitting(true);
     
     try {
+      if (!user) throw new Error('Not authenticated');
+      // Check if user already has an entry in day2
+      const day2Query = query(collection(db, 'day2'), where('userId', '==', user.uid));
+      const day2Snapshot = await getDocs(day2Query);
+      const hasDay2 = !day2Snapshot.empty;
+
+      // Prevent duplicate entry for single day submission
+      if (selectedDay === 'day2' && hasDay2) {
+        setAlreadyRegisteredDay2(true);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // For 'both' submission, if day2 already exists, skip writing day2 and show Day1 instructions
+      if (selectedDay === 'both' && hasDay2) {
+        setAlreadyRegisteredDay2(true);
+        setShowDay1InstructionAfterBoth(true);
+        setIsSubmitting(false);
+        return;
+      }
+
       // Include day information in submission
       const submissionData = {
         ...formData,
@@ -218,7 +240,8 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
           {/* Main Form - Spans 8 columns */}
           <div className="lg:col-span-8">
 
-            {(selectedDay === 'day1' || showDay1InstructionAfterBoth) ? (
+            {/* Render sequence: Day1 instruction panel -> AlreadyRegistered notice -> Form */}
+            { (selectedDay === 'day1' || showDay1InstructionAfterBoth) && (
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm">
                 <h3 className="text-2xl font-bold text-emerald-400 mb-4">CyberConverge Day 1 Instructions</h3>
                 <p className="text-gray-300 mb-4">Please use VIT Chennai Event Hub to register for Day 1.</p>
@@ -235,7 +258,26 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                   <button onClick={onBack} className="px-6 py-3 bg-emerald-400 text-black rounded-lg font-semibold">Back to Day Selection</button>
                 </div>
               </div>
-            ) : (
+            )}
+
+            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && alreadyRegisteredDay2 && selectedDay === 'day2' && (
+              <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl">
+                <h3 className="text-2xl font-bold text-emerald-400 mb-4">You're already registered for Day 2</h3>
+                <p className="text-gray-300 mb-4">We found an existing registration tied to your account.</p>
+                <p className="text-gray-300 mb-4">Would you like to register for Day 1 as well?</p>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => setShowDay1InstructionAfterBoth(true)}
+                    className="px-6 py-3 bg-emerald-400 text-black rounded-lg font-semibold"
+                  >
+                    Register Day 1
+                  </button>
+                  <button onClick={onBack} className="px-6 py-3 bg-gray-700 text-white rounded-lg">Back</button>
+                </div>
+              </div>
+            )}
+
+            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && !(alreadyRegisteredDay2 && selectedDay === 'day2') && (
               <form onSubmit={handleSubmit} className="space-y-8">
               {/* Personal Info Section */}
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm transform hover:scale-[1.01] transition-all duration-500">
