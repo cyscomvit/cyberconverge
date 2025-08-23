@@ -174,28 +174,30 @@ const Timeline: React.FC = () => {
       </div>
 
       {/* Day Switcher */}
-      <div className="flex justify-center mb-12">
-        <div className="cyber-card bg-gray-800/60 border border-gray-700 rounded-2xl p-2 backdrop-blur-sm">
-          <div className="flex space-x-2">
+      <div className="flex justify-center mb-12 px-4">
+        <div className="cyber-card w-full sm:w-auto bg-gray-800/60 border border-gray-700 rounded-2xl p-2 backdrop-blur-sm">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
             <button
               onClick={() => setActiveDay(1)}
-              className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${
+              className={`px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-300 ${
                 activeDay === 1
                   ? 'bg-gradient-to-r from-emerald-400 to-emerald-700 text-black shadow-lg shadow-emerald-400/25'
                   : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
               }`}
             >
-              Day 1 - CTF & Workshop
+              <span className="hidden sm:inline">Day 1 - CTF & Workshop</span>
+              <span className="sm:hidden">CTF & Workshop</span>
             </button>
             <button
               onClick={() => setActiveDay(2)}
-              className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 ${
+              className={`px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-300 ${
                 activeDay === 2
                   ? 'bg-gradient-to-r from-emerald-400 to-emerald-700 text-black shadow-lg shadow-emerald-400/25'
                   : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
               }`}
             >
-              Day 2 - Conference
+              <span className="hidden sm:inline">Day 2 - Conference</span>
+              <span className="sm:hidden">Conference</span>
             </button>
           </div>
         </div>
@@ -203,77 +205,142 @@ const Timeline: React.FC = () => {
 
       {/* Timeline Container */}
       <div className="relative max-w-6xl mx-auto">
-        {/* Central Timeline Line */}
-  <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-emerald-400 via-emerald-600 to-lime-400 h-full rounded-full opacity-60"></div>
-        
-        {/* Timeline Events */}
-        <div className="space-y-12">
-          {currentSchedule.map((event, index) => (
-            <div
-              key={index}
-              className={`relative flex items-center ${
-                index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-              }`}
-            >
-              {/* Timeline Node */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-emerald-400 to-emerald-700 rounded-full border-4 border-gray-900 z-10 shadow-lg shadow-emerald-400/50"></div>
-              
-              {/* Event Card */}
-              <div className={`w-5/12 ${index % 2 === 0 ? 'pr-12' : 'pl-12'}`}>
-                <div className={`cyber-card group p-6 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border ${getEventTypeBorder(event.type)} rounded-2xl backdrop-blur-sm hover:border-opacity-100 transition-all duration-500 transform hover:scale-105 ${
-                  index % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1'
-                }`}>
-                  <div className="flex items-start space-x-4">
-                    <div className={`flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-r ${getEventTypeColor(event.type)} p-3 group-hover:shadow-xl transition-all duration-300 transform group-hover:rotate-6`}>
-                      {typeof event.icon === 'string' ? (
-                        <span className="text-2xl">{event.icon}</span>
-                      ) : (
-                        <event.icon className="w-8 h-8 text-white" />
-                      )}
+        {/* Desktop Timeline (hidden on mobile) */}
+        <div className="hidden md:block">
+          {/* Central Timeline Line */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-emerald-400 via-emerald-600 to-lime-400 h-full rounded-full opacity-60"></div>
+          
+          {/* Timeline Events */}
+          <div className="space-y-12">
+            {currentSchedule.map((event, index) => (
+              <div
+                key={`desktop-${index}`}
+                className={`relative flex items-center ${
+                  index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+                }`}
+              >
+                {/* Timeline Node */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-emerald-400 to-emerald-700 rounded-full border-4 border-gray-900 z-10 shadow-lg shadow-emerald-400/50"></div>
+                
+                {/* Event Card */}
+                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-12' : 'pl-12'}`}>
+                  <div className={`cyber-card group p-6 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border ${getEventTypeBorder(event.type)} rounded-2xl backdrop-blur-sm hover:border-opacity-100 transition-all duration-500 transform hover:scale-105 ${
+                    index % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1'
+                  }`}>
+                    <div className="flex items-start space-x-4">
+                      <div className={`flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-r ${getEventTypeColor(event.type)} p-3 group-hover:shadow-xl transition-all duration-300 transform group-hover:rotate-6`}>
+                        {typeof event.icon === 'string' ? (
+                          <span className="text-2xl">{event.icon}</span>
+                        ) : (
+                          <event.icon className="w-8 h-8 text-white" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-sm font-mono text-emerald-400 mb-2">{event.time}</div>
+                        <h4 className="text-xl font-bold text-white mb-3">{event.title}</h4>
+                        <p className="text-gray-300 leading-relaxed">{event.description}</p>
+                        <div className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold ${
+                          event.type === 'workshop' ? 'bg-emerald-500/20 text-emerald-500' :
+                            event.type === 'session' ? 'bg-emerald-400/20 text-emerald-400' :
+                          event.type === 'break' ? 'bg-orange-400/20 text-orange-400' :
+                          event.type === 'networking' ? 'bg-green-400/20 text-green-400' :
+                          event.type === 'competition' ? 'bg-red-400/20 text-red-400' :
+                          'bg-gray-400/20 text-gray-400'
+                        }`}>
+                          {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <div className="text-sm font-mono text-emerald-400 mb-2">{event.time}</div>
-                      <h4 className="text-xl font-bold text-white mb-3">{event.title}</h4>
-                      <p className="text-gray-300 leading-relaxed">{event.description}</p>
-                      <div className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold ${
-                        event.type === 'workshop' ? 'bg-emerald-500/20 text-emerald-500' :
-                          event.type === 'session' ? 'bg-emerald-400/20 text-emerald-400' :
-                        event.type === 'break' ? 'bg-orange-400/20 text-orange-400' :
-                        event.type === 'networking' ? 'bg-green-400/20 text-green-400' :
-                        event.type === 'competition' ? 'bg-red-400/20 text-red-400' :
-                        'bg-gray-400/20 text-gray-400'
-                      }`}>
-                        {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                  </div>
+                </div>
+
+                {/* Time Display on Opposite Side with Connecting Line */}
+                <div className={`w-5/12 ${index % 2 === 0 ? 'pl-12' : 'pr-12'} relative`}>
+                  {/* Horizontal Connecting Line */}
+                  <div className={`absolute top-1/2 transform -translate-y-1/2 ${
+                    index % 2 === 0 ? 'right-0 left-[10px]' : 'left-0 right-[10px]'
+                  } h-1 bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-40`}></div>
+                  
+                  <div className={`relative z-10 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+                    <div className="inline-block px-6 py-3 bg-gray-800/40 border border-gray-700 rounded-xl backdrop-blur-sm">
+                      <div className="text-2xl font-bold text-green-400 mb-1">
+                        {event.time.split(' - ')[0]}
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        {event.time.split(' - ')[1] && `to ${event.time.split(' - ')[1]}`}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Time Display on Opposite Side with Connecting Line */}
-              <div className={`w-5/12 ${index % 2 === 0 ? 'pl-12' : 'pr-12'} relative`}>
-                {/* Horizontal Connecting Line */}
-                <div className={`absolute top-1/2 transform -translate-y-1/2 ${
-                  index % 2 === 0 ? 'right-0 left-[10px]' : 'left-0 right-[10px]'
-                } h-1 bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-40`}></div>
-                
-                <div className={`relative z-10 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                  <div className="inline-block px-6 py-3 bg-gray-800/40 border border-gray-700 rounded-xl backdrop-blur-sm">
-                    <div className="text-2xl font-bold text-green-400 mb-1">
-                      {event.time.split(' - ')[0]}
+            ))}
+          </div>
+          
+          {/* Timeline End Marker */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-8 h-8 bg-gradient-to-r from-lime-400 to-emerald-500 rounded-full border-4 border-gray-900 shadow-lg shadow-emerald-400/50"></div>
+        </div>
+        
+        {/* Mobile Timeline (shown only on mobile) */}
+        <div className="md:hidden px-4">
+          {/* Left-aligned vertical timeline */}
+          <div className="relative">
+            {/* Vertical Timeline Line */}
+            <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-400 via-emerald-600 to-lime-400 rounded-full opacity-60"></div>
+            
+            {/* Timeline Start Marker */}
+            <div className="absolute left-6 transform -translate-x-1/2 top-0 -mt-3 w-6 h-6 bg-gradient-to-r from-emerald-400 to-emerald-700 rounded-full border-4 border-gray-900 z-10 shadow-lg shadow-emerald-400/50"></div>
+            
+            {/* Timeline Events - Stacked Vertically */}
+            <div className="space-y-8 pt-8 pb-8">
+              {currentSchedule.map((event, index) => (
+                <div key={`mobile-${index}`} className="relative pl-16">
+                  {/* Timeline Node */}
+                  <div className="absolute left-6 transform -translate-x-1/2 top-6 w-5 h-5 bg-gradient-to-r from-emerald-400 to-emerald-700 rounded-full border-4 border-gray-900 z-10 shadow-md shadow-emerald-400/40"></div>
+                  
+                  {/* Horizontal Connecting Line */}
+                  <div className="absolute left-6 top-6 h-1 w-10 bg-gradient-to-r from-emerald-600 to-emerald-400 opacity-40 transform -translate-y-1/2"></div>
+                  
+                  {/* Event Card */}
+                  <div className={`cyber-card group p-4 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border ${getEventTypeBorder(event.type)} rounded-2xl backdrop-blur-sm hover:border-opacity-100 transition-all duration-500 transform hover:scale-[1.02]`}>
+                    {/* Time Display - Mobile */}
+                    <div className="mb-3 inline-block px-4 py-2 bg-gray-800/60 border border-gray-700 rounded-lg backdrop-blur-sm">
+                      <div className="text-lg font-bold text-green-400">
+                        {event.time}
+                      </div>
                     </div>
-                    <div className="text-sm text-gray-400">
-                      {event.time.split(' - ')[1] && `to ${event.time.split(' - ')[1]}`}
+                    
+                    <div className="flex items-start space-x-3">
+                      <div className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-r ${getEventTypeColor(event.type)} p-2.5 group-hover:shadow-lg`}>
+                        {typeof event.icon === 'string' ? (
+                          <span className="text-xl">{event.icon}</span>
+                        ) : (
+                          <event.icon className="w-7 h-7 text-white" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-lg font-bold text-white mb-2">{event.title}</h4>
+                        <p className="text-gray-300 text-sm leading-relaxed">{event.description}</p>
+                        <div className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold ${
+                          event.type === 'workshop' ? 'bg-emerald-500/20 text-emerald-500' :
+                            event.type === 'session' ? 'bg-emerald-400/20 text-emerald-400' :
+                          event.type === 'break' ? 'bg-orange-400/20 text-orange-400' :
+                          event.type === 'networking' ? 'bg-green-400/20 text-green-400' :
+                          event.type === 'competition' ? 'bg-red-400/20 text-red-400' :
+                          'bg-gray-400/20 text-gray-400'
+                        }`}>
+                          {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+            
+            {/* Timeline End Marker */}
+            <div className="absolute left-6 transform -translate-x-1/2 bottom-0 w-6 h-6 bg-gradient-to-r from-lime-400 to-emerald-500 rounded-full border-4 border-gray-900 shadow-lg shadow-emerald-400/50"></div>
+          </div>
         </div>
-
-        {/* Timeline End Marker */}
-  <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-8 h-8 bg-gradient-to-r from-lime-400 to-emerald-500 rounded-full border-4 border-gray-900 shadow-lg shadow-emerald-400/50"></div>
       </div>
 
       {/* Day Summary */}

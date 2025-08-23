@@ -4,7 +4,6 @@ import { Terminal as TerminalIcon } from 'lucide-react';
 const Terminal: React.FC = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(false);
   const terminalRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -244,34 +243,34 @@ Press any key to begin automated penetration testing...
       onClick={() => containerRef.current?.focus()}
     >
       {/* Terminal Header */}
-     <div className="terminal-header flex items-center justify-between px-4 py-3 bg-gray-800 border-b border-emerald-400/50 rounded-t-lg">
+      <div className="terminal-header flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 bg-gray-800 border-b border-emerald-400/50 rounded-t-lg">
         <div className="flex items-center space-x-2">
-       <TerminalIcon className="w-5 h-5 text-emerald-400" />
-       <span className="text-emerald-400 font-mono text-sm">cyber@converge:~</span>
+          <TerminalIcon className="w-4 sm:w-5 h-4 sm:h-5 text-emerald-400" />
+          <span className="text-emerald-400 font-mono text-xs sm:text-sm">cyber@converge:~</span>
         </div>
         <div className="flex space-x-2">
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+          <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500"></div>
+          <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500 animate-pulse"></div>
         </div>
       </div>
 
       {/* Terminal Body */}
-     <div
-       ref={terminalRef}
-       className="terminal-body bg-black/95 backdrop-blur-sm border-x border-emerald-400/50 p-4 h-96 overflow-y-auto font-mono text-sm leading-relaxed"
-     >
+      <div
+        ref={terminalRef}
+        className="terminal-body bg-black/95 backdrop-blur-sm border-x border-emerald-400/50 p-3 sm:p-4 h-60 sm:h-80 md:h-96 overflow-y-auto font-mono text-xs sm:text-sm leading-relaxed"
+      >
         <pre className="text-green-400 whitespace-pre-wrap break-words">
           {displayedText}
-       <span className="animate-pulse text-emerald-400">█</span>
+          <span className="animate-pulse text-emerald-400">█</span>
         </pre>
       </div>
 
       {/* Terminal Footer with Instructions */}
-     <div className="bg-gray-800 border-t border-emerald-400/50 rounded-b-lg px-4 py-2">
-        <div className="flex items-center justify-between text-xs text-gray-400">
-          <span>Press any key to execute commands • ESC to clear • Backspace to delete</span>
-       <span className="text-emerald-400">HACKER MODE ACTIVE</span>
+      <div className="bg-gray-800 border-t border-emerald-400/50 rounded-b-lg px-3 sm:px-4 py-1.5 sm:py-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-gray-400">
+          <span className="mb-1 sm:mb-0 text-center sm:text-left">Press any key to execute commands</span>
+          <span className="text-emerald-400 text-center sm:text-right">HACKER MODE</span>
         </div>
       </div>
     </div>
