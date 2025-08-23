@@ -46,11 +46,11 @@ const Hero: React.FC = () => {
                   titleVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-8'
                 }`}
               >
-                <span className="cyber-text-outline text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
+                <span className="cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300">
                   CYBER
                 </span>
                 <br />
-                <span className="cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300 animate-pulse">
+                <span className="cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300">
                   CONVERGE
                 </span>
               </h1>

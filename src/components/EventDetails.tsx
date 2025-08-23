@@ -326,7 +326,7 @@ const EventDetails: React.FC = () => {
 
                   <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-purple-400/30">
                     <div className="w-16 h-16 bg-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-purple-400 font-bold text-xl">N</span>
+                      <span className="text-purple-400 font-bold text-xl">H</span>
                     </div>
                     <h5 className="text-white font-semibold mb-1">Harsh</h5>
                     <p className="text-purple-400 font-mono text-sm">+91 98906 62736</p>

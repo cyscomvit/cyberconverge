@@ -6,7 +6,7 @@ const VenueMap: React.FC = () => {
     <section id="venue" className="py-20 px-4 ">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold font-orbitron mb-6 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold font-orbitron mb-6 bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent">
             Venue & Location
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -32,9 +32,9 @@ const VenueMap: React.FC = () => {
 
           {/* Venue Details */}
           <div className="space-y-8">
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-orange-500/20 rounded-xl p-6">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-green-500/20 rounded-xl p-6">
               <h3 className="text-2xl font-bold mb-4 text-white flex items-center">
-                <MapPin className="w-6 h-6 text-orange-400 mr-3" />
+                <MapPin className="w-6 h-6 text-green-400 mr-3" />
                 Event Venue
               </h3>
               <div className="space-y-3 text-gray-300">
@@ -44,7 +44,7 @@ const VenueMap: React.FC = () => {
                   
                 </p>
                 <p>
-                  <strong className="text-orange-400">Hall:</strong> Kamaraj Auditorium, Academic Block-3
+                  <strong className="text-green-400">Hall:</strong> Kamaraj Auditorium, Academic Block-3
                 </p>
               </div>
             </div>
@@ -53,7 +53,7 @@ const VenueMap: React.FC = () => {
               href="https://www.google.com/maps/dir//Vellore+Institute+of+Technology+-+Chennai,+Kelambakkam+-+Vandalur+Rd,+Rajan+Nagar,+Chennai,+Tamil+Nadu+600127/@12.8406311,80.1507345,17z"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block w-full bg-gradient-to-r from-orange-400 to-red-500 hover:from-orange-300 hover:to-red-400 text-black font-bold text-center py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300"
+              className="inline-block w-full bg-gradient-to-r from-green-400 to-green-900 hover:from-green-300 hover:to-green-900 text-black font-bold text-center py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300"
             >
               Get Directions
             </a>
