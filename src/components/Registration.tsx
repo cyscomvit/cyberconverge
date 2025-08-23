@@ -33,14 +33,14 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
     const dayInfo = {
       day1: {
         title: 'Day 1: Offensive Security',
-        date: 'March 15, 2025',
+        date: 'August 28, 2025',
         description: 'Focus on penetration testing, web security, and offensive techniques',
         color: 'emerald',
         topics: ['Web Application Testing', 'Network Penetration', 'Social Engineering', 'OSINT Techniques']
       },
       day2: {
         title: 'Day 2: Defensive Security',
-        date: 'March 16, 2025', 
+        date: 'August 29, 2025', 
         description: 'Emphasis on digital forensics, incident response, and defensive strategies',
         color: 'cyan',
         topics: ['Digital Forensics', 'Malware Analysis', 'Incident Response', 'Security Monitoring']
