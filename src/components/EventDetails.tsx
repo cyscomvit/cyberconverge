@@ -96,8 +96,7 @@ const EventDetails: React.FC = () => {
               </div>
             </div>
             <p className="text-xl text-gray-300 max-w-3xl ml-auto mr-16 mt-8 leading-relaxed">
-              Experience hands-on cybersecurity through live demonstrations, competitive challenges, 
-              and expert-led workshops that push the boundaries of ethical hacking.
+              CYBERCONVERGE unites the brightest minds in cybersecurity to exchange knowledge, build connections, and gain hands-on experience with the latest security technologies.
             </p>
           </div>
 

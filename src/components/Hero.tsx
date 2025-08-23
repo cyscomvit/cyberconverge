@@ -31,11 +31,11 @@ const Hero: React.FC = () => {
               <div className="flex items-center justify-center lg:justify-start mb-8 space-x-4">
               <div className="flex items-center space-x-2 px-4 py-2 border border-emerald-400/30 rounded-lg bg-gray-800/50 backdrop-blur-sm">
                 <Shield className="w-6 h-6 text-emerald-400" />
-                <span className="text-sm font-mono text-emerald-400">VIT CHENNAI</span>
+                <span className="text-sm font-mono text-emerald-400">CYSCOM VITC</span>
               </div>
               <div className="text-emerald-400 text-sm font-mono">x</div>
               <div className="px-4 py-2 border border-emerald-500/30 rounded-lg bg-gray-800/50 backdrop-blur-sm">
-                <span className="text-sm font-mono text-emerald-500">CYSCOM</span>
+                <span className="text-sm font-mono text-emerald-500">Project SAFE</span>
               </div>
             </div>
 
@@ -62,28 +62,31 @@ const Hero: React.FC = () => {
                 subtitleVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-4'
               }`}
             >
-                <p className="text-xl sm:text-2xl text-gray-300 mb-4 leading-relaxed">
-                Join expert talks, workshops, and live demonstrations on
-                <span className="text-emerald-400 font-semibold"> cybersecurity</span>, hosted by
-                <span className="text-emerald-500 font-semibold"> CYSCOM VIT Chennai</span>
-              </p>
+                <p className="text-xl sm:text-2xl text-gray-300 mb-1 leading-relaxed font-mono">
+                  The Premier Cybersecurity Event-
+                </p>
+                <p className="text-xl sm:text-2xl text-gray-300 mb-4 leading-relaxed font-mono">
+                  Where
+                  <span className="text-emerald-400 font-semibold"> Innovation</span> Meets
+                  <span className="text-emerald-500 font-semibold"> Security</span>
+                </p>
               
               {/* Event Details */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 mb-8">
-                <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm">
+                <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm font-mono">
                   <div className="text-2xl font-bold text-emerald-400">AUG</div>
                   <div className="text-3xl font-bold text-white">28-29</div>
                   <div className="text-xl text-emerald-400">2025</div>
                 </div>
-                <div className="text-center p-4 border border-emerald-500/30 rounded-lg bg-gray-800/30 backdrop-blur-sm">
-                  <div className="text-sm text-gray-300">TIME</div>
-                  <div className="text-lg font-bold text-white">8 AM - 5 PM</div>
-                  <div className="text-sm text-emerald-500">FULL DAY</div>
+                <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm font-mono">
+                  <div className="text-2xl font-bold text-emerald-400">TIME</div>
+                  <div className="text-3xl font-bold text-white">8AM - 5PM</div>
+                  <div className="text-xl text-emerald-400"></div>
                 </div>
-                <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm">
-                  <div className="text-sm text-gray-300">VENUE</div>
-                  <div className="text-sm font-bold text-white">KAMARAJ</div>
-                  <div className="text-sm text-emerald-400">AUDITORIUM</div>
+                <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm font-mono">
+                  <div className="text-2xl font-bold text-emerald-400">VENUE</div>
+                  <div className="text-3xl font-bold text-white">KAMARAJ</div>
+                  <div className="text-xl text-emerald-400">AUDITORIUM</div>
                 </div>
               </div>
 
