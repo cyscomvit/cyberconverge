@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target } from 'lucide-react';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
 interface RegistrationProps {
@@ -11,7 +13,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const { user } = useAuth();
   
   const [formData, setFormData] = useState({
-    name: user?.displayName || '',
+    name: '', // Don't auto-fill from Google account
     email: user?.email || '', // Auto-filled from Firebase auth
     phone: '',
     college: '',
@@ -87,21 +89,34 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Include day information in submission
-    const submissionData = {
-      ...formData,
-      selectedDay,
-      dayTitle: currentDayInfo.title,
-      dayDate: currentDayInfo.date
-    };
-    
-    console.log('Submitting registration for:', submissionData);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitted(true);
-    setIsSubmitting(false);
+    try {
+      // Include day information in submission
+      const submissionData = {
+        ...formData,
+        selectedDay,
+        dayTitle: currentDayInfo.title,
+        dayDate: currentDayInfo.date,
+        userId: user?.uid,
+        userEmail: user?.email,
+        registrationDate: new Date().toISOString(),
+        timestamp: new Date()
+      };
+      
+      // Save to the appropriate collection (day1 or day2)
+      const collectionName = selectedDay === 'day1' ? 'day1' : 'day2';
+      const docRef = await addDoc(collection(db, collectionName), submissionData);
+      
+      console.log('Registration saved with ID: ', docRef.id);
+      console.log('Submitted to collection:', collectionName);
+      
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error saving registration:', error);
+      // You might want to show an error message to the user
+      alert('Failed to submit registration. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
