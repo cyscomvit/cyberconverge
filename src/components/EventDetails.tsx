@@ -48,7 +48,7 @@ const EventDetails: React.FC = () => {
   const stats = [
     { number: '500+', label: 'Participants Expected', icon: Users },
     { number: '15+', label: 'Industry Experts', icon: Star },
-    { number: '₹50K', label: 'Prize Pool', icon: Trophy },
+    { number: '₹90,000', label: 'Prize Worth', icon: Trophy },
     { number: '48hrs', label: 'Non-stop Action', icon: Zap }
   ];
 
@@ -82,8 +82,8 @@ const EventDetails: React.FC = () => {
                   <div className="cyber-card p-6 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-emerald-500/30 rounded-2xl backdrop-blur-sm transform rotate-3 hover:rotate-0 transition-all duration-700">
                   <div className="text-center">
                     <Award className="w-8 h-8 text-emerald-500 mx-auto mb-3" />
-                    <div className="text-2xl font-bold text-white">₹50,000</div>
-                    <div className="text-sm text-emerald-500">Total Prizes</div>
+                    <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300">National Cyber Security Summit</div>
+                    <div className="mt-3 inline-flex items-center px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-sm font-semibold">Flagship Summit</div>
                   </div>
                 </div>
               </div>
