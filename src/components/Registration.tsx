@@ -1,47 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target, Calendar, ChevronDown, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface RegistrationProps {
-  selectedDay?: 'day1' | 'day2';
+  selectedDay: 'day1' | 'day2';
+  onBack: () => void;
 }
 
-const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
+const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const { user } = useAuth();
+  
   const [formData, setFormData] = useState({
-    name: '',
-    email: user?.email || '',
+    name: user?.displayName || '',
+    email: user?.email || '', // Auto-filled from Firebase auth
     phone: '',
     college: '',
     year: '',
     branch: '',
-    interests: [],
-    day: selectedDay || ''
+    interests: []
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState('');
 
-  useEffect(() => {
-    if (user?.email) {
-      setFormData(prev => ({ ...prev, email: user.email || '' }));
-    }
-    if (selectedDay) {
-      setFormData(prev => ({ ...prev, day: selectedDay }));
-    }
-  }, [user, selectedDay]);
+  // Get interests based on selected day
+  const getInterestsForDay = (day: 'day1' | 'day2') => {
+    const day1Interests = [
+      { name: 'Penetration Testing', icon: Target, color: 'red' },
+      { name: 'Web Security', icon: '🌍', color: 'blue' },
+      { name: 'Network Security', icon: '🌐', color: 'green' },
+      { name: 'Social Engineering', icon: '🎭', color: 'purple' },
+      { name: 'OSINT Gathering', icon: '🔍', color: 'cyan' }
+    ];
 
-  const interests = [
-    { name: 'Penetration Testing', icon: Target, color: 'red' },
-    { name: 'Ethical Hacking', icon: Shield, color: 'cyan' },
-    { name: 'Digital Forensics', icon: '🔍', color: 'purple' },
-    { name: 'Network Security', icon: '🌐', color: 'green' },
-    { name: 'Cryptography', icon: '🔐', color: 'yellow' },
-    { name: 'Malware Analysis', icon: '🦠', color: 'red' },
-    { name: 'Web Security', icon: '🌍', color: 'blue' },
-    { name: 'Mobile Security', icon: '📱', color: 'purple' },
-    { name: 'IoT Security', icon: '📡', color: 'cyan' }
-  ];
+    const day2Interests = [
+      { name: 'Digital Forensics', icon: '🔍', color: 'purple' },
+      { name: 'Cryptography', icon: '🔐', color: 'yellow' },
+      { name: 'Malware Analysis', icon: '🦠', color: 'red' },
+      { name: 'Mobile Security', icon: '📱', color: 'purple' },
+      { name: 'IoT Security', icon: '�', color: 'cyan' },
+      { name: 'Incident Response', icon: '🚨', color: 'orange' }
+    ];
+
+    return day === 'day1' ? day1Interests : day2Interests;
+  };
+
+  const interests = getInterestsForDay(selectedDay);
+
+  const getDayInfo = (day: 'day1' | 'day2') => {
+    const dayInfo = {
+      day1: {
+        title: 'Day 1: Offensive Security',
+        date: 'March 15, 2025',
+        description: 'Focus on penetration testing, web security, and offensive techniques',
+        color: 'emerald',
+        topics: ['Web Application Testing', 'Network Penetration', 'Social Engineering', 'OSINT Techniques']
+      },
+      day2: {
+        title: 'Day 2: Defensive Security',
+        date: 'March 16, 2025', 
+        description: 'Emphasis on digital forensics, incident response, and defensive strategies',
+        color: 'cyan',
+        topics: ['Digital Forensics', 'Malware Analysis', 'Incident Response', 'Security Monitoring']
+      }
+    };
+    return dayInfo[day];
+  };
+
+  const currentDayInfo = getDayInfo(selectedDay);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -60,6 +86,16 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
+    // Include day information in submission
+    const submissionData = {
+      ...formData,
+      selectedDay,
+      dayTitle: currentDayInfo.title,
+      dayDate: currentDayInfo.date
+    };
+    
+    console.log('Submitting registration for:', submissionData);
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
@@ -88,12 +124,20 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
                   Registration Complete!
                 </span>
               </h2>
+              <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-4 mb-8">
+                <p className="text-emerald-400 font-semibold text-lg">
+                  {currentDayInfo.title}
+                </p>
+                <p className="text-gray-300 text-sm">
+                  {currentDayInfo.date} • {currentDayInfo.description}
+                </p>
+              </div>
               <p className="text-gray-300 text-xl mb-8 leading-relaxed">
-                Welcome to the CyberConverge! You'll receive a confirmation email with 
+                Welcome to the CyberConverge family! You'll receive a confirmation email with 
                 event details, access credentials, and exclusive pre-event materials.
               </p>
               
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
                 <div className="p-4 bg-emerald-400/10 rounded-xl border border-emerald-400/20">
                   <Zap className="w-8 h-8 text-emerald-400 mx-auto mb-2" />
                   <div className="text-sm text-emerald-400 font-semibold">Instant Access</div>
@@ -110,6 +154,13 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
                   <div className="text-xs text-gray-400">Direct Expert Access</div>
                 </div>
               </div>
+              
+              <button
+                onClick={onBack}
+                className="inline-block px-8 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-xl mr-4 transition-all duration-300"
+              >
+                Register for Another Day
+              </button>
               
               <div className="inline-block px-10 py-4 bg-gradient-to-r from-emerald-400 to-lime-300 text-black font-bold rounded-2xl text-lg transform hover:scale-105 transition-all duration-300">
                 See you at CyberConverge 2025! 🚀
@@ -134,40 +185,29 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
         {/* Creative Header */}
         <div className="text-center mb-20">
           <div className="relative inline-block">
+            <div className="mb-4 inline-flex items-center px-6 py-2 bg-emerald-400/20 border border-emerald-400/30 rounded-full">
+              <span className="text-emerald-400 font-semibold">{currentDayInfo.title}</span>
+              <span className="mx-3 w-1 h-1 bg-emerald-400 rounded-full"></span>
+              <span className="text-emerald-400 text-sm">{currentDayInfo.date}</span>
+            </div>
             <h2 className="text-6xl sm:text-7xl font-black mb-6 leading-none">
-              <span className="block text-white transform -rotate-2">JOIN THE</span>
+              <span className="block text-white transform -rotate-2">REGISTER FOR</span>
               <span className="block cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-lime-300 transform rotate-2 -mt-4">
-                REVOLUTION
+                {selectedDay.toUpperCase()}
               </span>
             </h2>
             <div className="absolute -top-12 -right-16 w-32 h-32 border-2 border-emerald-400/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
             <div className="absolute -bottom-8 -left-12 w-20 h-20 border-2 border-emerald-500/20 rounded-full animate-pulse"></div>
           </div>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mt-8 leading-relaxed">
-            Secure your spot in the most anticipated cybersecurity event of the year. 
-            Limited seats available for this exclusive experience.
+            {currentDayInfo.description}. Secure your spot for this specialized track.
           </p>
-          
-          {/* Day Selection Indicator */}
-          {selectedDay && (
-            <div className="mt-8 flex justify-center">
-              <div className={`inline-flex items-center px-8 py-4 rounded-2xl border backdrop-blur-sm ${
-                selectedDay === 'day1' 
-                  ? 'bg-emerald-400/20 border-emerald-400/40 text-emerald-400' 
-                  : 'bg-cyan-400/20 border-cyan-400/40 text-cyan-400'
-              }`}>
-                <Calendar className="w-6 h-6 mr-3" />
-                <div>
-                  <div className="font-bold text-lg">
-                    {selectedDay === 'day1' ? 'Day 1 Registration' : 'Day 2 Registration'}
-                  </div>
-                  <div className="text-sm opacity-80">
-                    {selectedDay === 'day1' ? 'August 28, 2025' : 'August 29, 2025'}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          <button
+            onClick={onBack}
+            className="mt-4 text-emerald-400 hover:text-emerald-300 underline transition-colors duration-300"
+          >
+            ← Back to day selection
+          </button>
         </div>
 
         {/* Dynamic Form Layout */}
@@ -206,20 +246,22 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
 
                   <div className="cyber-input-group">
                     <label className="block text-emerald-400 font-medium mb-3 flex items-center">
-                      <Mail className="w-4 h-4 mr-2" />
                       Email Address *
-                      <span className="ml-2 text-xs bg-emerald-400/20 text-emerald-400 px-2 py-1 rounded">Auto-filled</span>
+                      <span className="ml-2 text-xs bg-emerald-400/20 text-emerald-400 px-2 py-1 rounded">
+                        Auto-filled
+                      </span>
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       readOnly
-                      disabled
-                      className="cyber-input w-full px-6 py-4 bg-gray-800/50 border-2 rounded-xl text-gray-300 border-gray-500 cursor-not-allowed"
+                      className="cyber-input w-full px-6 py-4 bg-gray-900/30 border-2 border-gray-500 rounded-xl text-gray-300 cursor-not-allowed opacity-75"
                       placeholder="your.email@domain.com"
                     />
-                    <p className="text-xs text-gray-400 mt-2">Email automatically filled from your Google account</p>
+                    <p className="text-xs text-gray-400 mt-2">
+                      This email is linked to your Google account and cannot be changed.
+                    </p>
                   </div>
 
                   <div className="cyber-input-group">
@@ -371,7 +413,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
                   ) : (
                     <>
                       <Send className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
-                      Join CyberConverge 2025
+                      Register for {currentDayInfo.title}
                       <Zap className="w-6 h-6 ml-3 group-hover:scale-125 transition-transform duration-300" />
                     </>
                   )}
@@ -382,17 +424,30 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
 
           {/* Side Info Panel - Spans 4 columns */}
           <div className="lg:col-span-4 space-y-8">
+            {/* Day-specific Topics */}
+            <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-emerald-400/30 rounded-2xl backdrop-blur-sm transform rotate-1 hover:rotate-0 transition-all duration-700">
+              <h4 className="text-xl font-bold text-emerald-400 mb-6">{currentDayInfo.title} Topics</h4>
+              <div className="space-y-3">
+                {currentDayInfo.topics.map((topic, index) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                    <span className="text-gray-300 font-medium">{topic}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Registration Benefits */}
-            <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-cyan-400/30 rounded-2xl backdrop-blur-sm transform rotate-1 hover:rotate-0 transition-all duration-700">
+            <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-cyan-400/30 rounded-2xl backdrop-blur-sm transform -rotate-1 hover:rotate-0 transition-all duration-700">
               <h4 className="text-xl font-bold text-cyan-400 mb-6">What You Get</h4>
               <div className="space-y-4">
                 {[
-                  { icon: '🎯', text: 'Exclusive CTF Access', color: 'text-red-400' },
-                  { icon: '🏆', text: 'Certificate of Participation', color: 'text-yellow-400' },
-                  { icon: '🎁', text: 'Swag & Goodies', color: 'text-green-400' },
-                  { icon: '🤝', text: 'Industry Networking', color: 'text-purple-400' },
-                  { icon: '📚', text: 'Learning Resources', color: 'text-cyan-400' },
-                  { icon: '🍕', text: 'Meals & Refreshments', color: 'text-orange-400' }
+                  { icon: '🎯', text: 'Hands-on Labs', color: 'text-red-400' },
+                  { icon: '🏆', text: 'Certificate of Completion', color: 'text-yellow-400' },
+                  { icon: '🎁', text: 'Exclusive Swag', color: 'text-green-400' },
+                  { icon: '🤝', text: 'Expert Mentoring', color: 'text-purple-400' },
+                  { icon: '📚', text: 'Study Materials', color: 'text-cyan-400' },
+                  { icon: '🍕', text: 'Meals Included', color: 'text-orange-400' }
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <span className="text-2xl">{benefit.icon}</span>

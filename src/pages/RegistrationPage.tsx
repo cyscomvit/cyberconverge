@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate, useParams } from 'react-router-dom';
-import { LogOut, Home, User, Shield, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LogOut, Home, User, Shield } from 'lucide-react';
 import Registration from '../components/Registration';
+import DaySelection from '../components/DaySelection';
 
 const RegistrationPage: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const { day } = useParams<{ day: 'day1' | 'day2' }>();
+  const [selectedDay, setSelectedDay] = useState<'day1' | 'day2' | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -22,8 +23,12 @@ const RegistrationPage: React.FC = () => {
     navigate('/');
   };
 
-  const handleGoBack = () => {
-    navigate('/register');
+  const handleDaySelect = (day: 'day1' | 'day2') => {
+    setSelectedDay(day);
+  };
+
+  const handleBackToSelection = () => {
+    setSelectedDay(null);
   };
 
   return (
@@ -48,15 +53,6 @@ const RegistrationPage: React.FC = () => {
                   CyberConverge Registration
                 </span>
               </h1>
-              {day && (
-                <div className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                  day === 'day1' 
-                    ? 'bg-emerald-400/20 text-emerald-400 border border-emerald-400/30' 
-                    : 'bg-cyan-400/20 text-cyan-400 border border-cyan-400/30'
-                }`}>
-                  {day === 'day1' ? 'Day 1' : 'Day 2'}
-                </div>
-              )}
             </div>
 
             {/* User info and actions */}
@@ -69,14 +65,6 @@ const RegistrationPage: React.FC = () => {
                   </div>
                 </div>
               )}
-              
-              <button
-                onClick={handleGoBack}
-                className="flex items-center space-x-2 px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 hover:text-white rounded-lg transition-all duration-300"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back to Selection</span>
-              </button>
               
               <button
                 onClick={handleGoHome}
@@ -98,33 +86,41 @@ const RegistrationPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Registration Form */}
+      {/* Registration Form or Day Selection */}
       <div className="relative z-10">
-        <Registration selectedDay={day} />
+        {selectedDay ? (
+          <Registration selectedDay={selectedDay} onBack={handleBackToSelection} />
+        ) : (
+          <DaySelection onDaySelect={handleDaySelect} />
+        )}
       </div>
 
-      {/* Welcome Message */}
-      <div className="fixed top-20 right-6 z-30 max-w-sm">
-        <div className="bg-emerald-400/10 backdrop-blur-sm border border-emerald-400/20 rounded-xl p-4 shadow-lg">
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-full overflow-hidden">
-              {user?.photoURL ? (
-                <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full bg-emerald-400 flex items-center justify-center">
-                  <User className="w-4 h-4 text-gray-900" />
-                </div>
-              )}
-            </div>
-            <div>
-              <p className="text-emerald-400 font-semibold text-sm">
-                Welcome, {user?.displayName?.split(' ')[0]}!
-              </p>
-              <p className="text-gray-400 text-xs">Complete your registration below</p>
+      {/* Welcome Message - Only show when day is selected */}
+      {selectedDay && (
+        <div className="fixed top-20 right-6 z-30 max-w-sm">
+          <div className="bg-emerald-400/10 backdrop-blur-sm border border-emerald-400/20 rounded-xl p-4 shadow-lg">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 rounded-full overflow-hidden">
+                {user?.photoURL ? (
+                  <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full bg-emerald-400 flex items-center justify-center">
+                    <User className="w-4 h-4 text-gray-900" />
+                  </div>
+                )}
+              </div>
+              <div>
+                <p className="text-emerald-400 font-semibold text-sm">
+                  Welcome, {user?.displayName?.split(' ')[0]}!
+                </p>
+                <p className="text-gray-400 text-xs">
+                  Registering for {selectedDay === 'day1' ? 'Offensive Security' : 'Defensive Security'}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

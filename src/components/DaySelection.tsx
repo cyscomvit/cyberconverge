@@ -1,0 +1,236 @@
+import React, { useState } from 'react';
+import { Calendar, Clock, Users, Target, Shield, ChevronRight, Zap } from 'lucide-react';
+
+interface DaySelectionProps {
+  onDaySelect: (day: 'day1' | 'day2') => void;
+}
+
+const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
+  const [expandedDay, setExpandedDay] = useState<'day1' | 'day2' | null>(null);
+
+  const dayDetails = {
+    day1: {
+      title: 'Day 1: Offensive Security',
+      subtitle: 'Attack & Penetrate',
+      date: 'March 15, 2025',
+      time: '9:00 AM - 6:00 PM',
+      capacity: '100 seats',
+      description: 'Master the art of ethical hacking and penetration testing',
+      color: {
+        primary: 'emerald',
+        accent: 'red',
+        gradient: 'from-emerald-500 to-red-500'
+      },
+      topics: [
+        { name: 'Web Application Security Testing', icon: '🌍', level: 'Intermediate' },
+        { name: 'Network Penetration Testing', icon: '🌐', level: 'Advanced' },
+        { name: 'Social Engineering Techniques', icon: '🎭', level: 'Beginner' },
+        { name: 'OSINT & Information Gathering', icon: '🔍', level: 'Intermediate' },
+        { name: 'Wireless Network Attacks', icon: '📡', level: 'Advanced' },
+        { name: 'Physical Security Testing', icon: '🏢', level: 'Intermediate' }
+      ],
+      speakers: ['John Smith - Ex-NSA Security Expert', 'Sarah Chen - Bug Bounty Hunter'],
+      highlight: 'Live penetration testing demonstrations'
+    },
+    day2: {
+      title: 'Day 2: Defensive Security',
+      subtitle: 'Defend & Investigate',
+      date: 'March 16, 2025',
+      time: '9:00 AM - 6:00 PM',
+      capacity: '100 seats',
+      description: 'Learn advanced defensive strategies and forensic techniques',
+      color: {
+        primary: 'cyan',
+        accent: 'blue',
+        gradient: 'from-cyan-500 to-blue-500'
+      },
+      topics: [
+        { name: 'Digital Forensics & Evidence Collection', icon: '🔍', level: 'Advanced' },
+        { name: 'Incident Response Procedures', icon: '🚨', level: 'Intermediate' },
+        { name: 'Malware Analysis & Reverse Engineering', icon: '🦠', level: 'Advanced' },
+        { name: 'Security Information Event Management', icon: '📊', level: 'Intermediate' },
+        { name: 'Threat Hunting Techniques', icon: '🎯', level: 'Advanced' },
+        { name: 'Cryptographic Implementation', icon: '🔐', level: 'Expert' }
+      ],
+      speakers: ['Dr. Mike Johnson - Digital Forensics Expert', 'Lisa Wang - SOC Manager'],
+      highlight: 'Real-world incident response simulation'
+    }
+  };
+
+  const handleDayClick = (day: 'day1' | 'day2') => {
+    setExpandedDay(expandedDay === day ? null : day);
+  };
+
+  const handleRegisterClick = (day: 'day1' | 'day2') => {
+    onDaySelect(day);
+  };
+
+  return (
+    <section className="relative z-10 py-32 px-4 sm:px-6 lg:px-8">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-400/10 to-emerald-200/6 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-tl from-cyan-500/8 to-blue-400/8 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <div className="relative inline-block">
+            <h2 className="text-6xl sm:text-7xl font-black mb-6 leading-none">
+              <span className="block text-white transform -rotate-1">CHOOSE YOUR</span>
+              <span className="block cyber-text-glow text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-400 transform rotate-1 -mt-4">
+                ADVENTURE
+              </span>
+            </h2>
+            <div className="absolute -top-12 -right-16 w-32 h-32 border-2 border-emerald-400/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
+            <div className="absolute -bottom-8 -left-12 w-20 h-20 border-2 border-cyan-400/20 rounded-full animate-pulse"></div>
+          </div>
+          <p className="text-xl text-gray-300 max-w-4xl mx-auto mt-8 leading-relaxed">
+            CyberConverge 2025 offers two specialized tracks. Click on each day to explore detailed content 
+            and register for your preferred security specialization.
+          </p>
+        </div>
+
+        {/* Day Selection Cards */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {Object.entries(dayDetails).map(([dayKey, day]) => {
+            const isExpanded = expandedDay === dayKey;
+            const dayTyped = dayKey as 'day1' | 'day2';
+            
+            return (
+              <div
+                key={dayKey}
+                className={`cyber-card relative bg-gradient-to-br from-gray-800/60 to-gray-900/80 border rounded-3xl backdrop-blur-sm transition-all duration-700 transform hover:scale-105 ${
+                  isExpanded
+                    ? `border-${day.color.primary}-400/50 shadow-2xl shadow-${day.color.primary}-400/20`
+                    : 'border-gray-700 hover:border-gray-600'
+                } ${isExpanded ? 'lg:col-span-2' : ''}`}
+              >
+                {/* Card Header */}
+                <div 
+                  className="p-8 cursor-pointer"
+                  onClick={() => handleDayClick(dayTyped)}
+                >
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center space-x-4">
+                      <div className={`p-4 rounded-xl bg-gradient-to-r ${day.color.gradient} shadow-lg`}>
+                        {dayKey === 'day1' ? (
+                          <Target className="w-8 h-8 text-white" />
+                        ) : (
+                          <Shield className="w-8 h-8 text-white" />
+                        )}
+                      </div>
+                      <div>
+                        <h3 className={`text-3xl font-bold text-${day.color.primary}-400 mb-2`}>
+                          {day.title}
+                        </h3>
+                        <p className="text-gray-400 text-lg">{day.subtitle}</p>
+                      </div>
+                    </div>
+                    <ChevronRight 
+                      className={`w-6 h-6 text-${day.color.primary}-400 transition-transform duration-300 ${
+                        isExpanded ? 'rotate-90' : ''
+                      }`} 
+                    />
+                  </div>
+
+                  {/* Basic Info */}
+                  <div className="grid md:grid-cols-3 gap-4 mb-6">
+                    <div className="flex items-center space-x-2 text-gray-300">
+                      <Calendar className={`w-5 h-5 text-${day.color.primary}-400`} />
+                      <span className="font-medium">{day.date}</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-gray-300">
+                      <Clock className={`w-5 h-5 text-${day.color.primary}-400`} />
+                      <span className="font-medium">{day.time}</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-gray-300">
+                      <Users className={`w-5 h-5 text-${day.color.primary}-400`} />
+                      <span className="font-medium">{day.capacity}</span>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    {day.description}
+                  </p>
+
+                  <div className={`mt-4 inline-flex items-center px-4 py-2 bg-${day.color.primary}-400/20 border border-${day.color.primary}-400/30 rounded-full`}>
+                    <Zap className={`w-4 h-4 text-${day.color.primary}-400 mr-2`} />
+                    <span className={`text-${day.color.primary}-400 font-semibold text-sm`}>
+                      {day.highlight}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Expanded Content */}
+                {isExpanded && (
+                  <div className="px-8 pb-8 border-t border-gray-700">
+                    <div className="grid lg:grid-cols-2 gap-8 pt-8">
+                      {/* Topics */}
+                      <div>
+                        <h4 className={`text-xl font-bold text-${day.color.primary}-400 mb-6`}>
+                          Workshop Topics
+                        </h4>
+                        <div className="space-y-4">
+                          {day.topics.map((topic, index) => (
+                            <div key={index} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl border border-gray-700/50">
+                              <div className="flex items-center space-x-3">
+                                <span className="text-2xl">{topic.icon}</span>
+                                <div>
+                                  <p className="text-white font-medium">{topic.name}</p>
+                                  <p className={`text-${day.color.primary}-400 text-sm`}>{topic.level}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Speakers & Register */}
+                      <div className="space-y-6">
+                        <div>
+                          <h4 className={`text-xl font-bold text-${day.color.primary}-400 mb-4`}>
+                            Expert Speakers
+                          </h4>
+                          <div className="space-y-3">
+                            {day.speakers.map((speaker, index) => (
+                              <div key={index} className="p-4 bg-gray-800/50 rounded-xl border border-gray-700/50">
+                                <p className="text-white font-medium">{speaker}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Register Button */}
+                        <button
+                          onClick={() => handleRegisterClick(dayTyped)}
+                          className={`w-full group flex items-center justify-center px-8 py-6 bg-gradient-to-r ${day.color.gradient} text-white font-bold text-xl rounded-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-${day.color.primary}-400/50 transition-all duration-300 shadow-2xl shadow-${day.color.primary}-400/25`}
+                        >
+                          <Target className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
+                          Register for {day.title}
+                          <ChevronRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center mt-16">
+          <div className="inline-flex items-center px-6 py-3 bg-gray-800/50 border border-gray-600 rounded-full">
+            <span className="text-gray-400 mr-2">Can't decide?</span>
+            <span className="text-emerald-400 font-semibold">Register for both days!</span>
+            <span className="ml-2 text-gray-400">Complete your cybersecurity journey.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default DaySelection;
