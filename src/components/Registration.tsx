@@ -473,12 +473,11 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
               <h4 className="text-xl font-bold text-cyan-400 mb-6">What You Get</h4>
               <div className="space-y-4">
                 {[
-                  { icon: '🎯', text: 'Hands-on Labs', color: 'text-red-400' },
-                  { icon: '🏆', text: 'Certificate of Completion', color: 'text-yellow-400' },
-                  { icon: '🎁', text: 'Exclusive Swag', color: 'text-green-400' },
-                  { icon: '🤝', text: 'Expert Mentoring', color: 'text-purple-400' },
-                  { icon: '📚', text: 'Study Materials', color: 'text-cyan-400' },
-                  { icon: '🍕', text: 'Meals Included', color: 'text-orange-400' }
+                  { text: 'Hands-on Experience', color: 'text-white-400' },
+                  { text: 'Certificate of Participation', color: 'text-white-400' },
+                  { text: 'Networking Opportunities', color: 'text-white-400' },
+                  { text: 'Expert Mentoring', color: 'text-white-400' }
+
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <span className="text-2xl">{benefit.icon}</span>
@@ -497,7 +496,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                   <div className="text-sm text-purple-400">Expected Participants</div>
                 </div>
                 <div className="text-center p-4 bg-cyan-400/10 rounded-xl">
-                  <div className="text-3xl font-black text-white">₹50K</div>
+                  <div className="text-3xl font-black text-white">₹90K</div>
                   <div className="text-sm text-cyan-400">Prize Pool</div>
                 </div>
                 <div className="text-center p-4 bg-green-400/10 rounded-xl">
@@ -518,8 +517,8 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Phone className="w-4 h-4 text-purple-400" />
-                  <span className="text-gray-300">Niharga:</span>
-                  <span className="text-purple-400 font-mono">+91 96061 49532</span>
+                  <span className="text-gray-300">Harsh:</span>
+                  <span className="text-purple-400 font-mono">+91 98906 62736</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Mail className="w-4 h-4 text-green-400" />

@@ -10,50 +10,49 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
 
   const dayDetails = {
     day1: {
-  title: 'Day 1: CTF Championship',
-  subtitle: 'Capture The Flag',
-  date: 'August 28, 2025',
-  time: '8:00 AM - 5:00 PM',
-  capacity: '₹150',
-  description: 'Compete in a high-energy Capture The Flag with progressive challenges and team play',
+      title: 'Day 1: CTF Championship',
+      subtitle: 'Capture The Flag',
+      date: 'August 28, 2025',
+      time: '8:00 AM - 5:00 PM',
+      capacity: '₹150',
+      description: 'Compete in a high-energy Capture The Flag with progressive challenges and team play',
       color: {
         primary: 'emerald',
         accent: 'red',
         gradient: 'from-emerald-500 to-red-500'
       },
       topics: [
-        { name: 'Web Application Security Testing', icon: '🌍', level: 'Intermediate' },
-        { name: 'Network Penetration Testing', icon: '🌐', level: 'Advanced' },
-        { name: 'Social Engineering Techniques', icon: '🎭', level: 'Beginner' },
-        { name: 'OSINT & Information Gathering', icon: '🔍', level: 'Intermediate' },
-        { name: 'Wireless Network Attacks', icon: '📡', level: 'Advanced' },
-        { name: 'Physical Security Testing', icon: '🏢', level: 'Intermediate' }
+        { name: 'Kali Installation Booth', level: 'Basics' },
+        { name: 'CTF Workshop', level: 'Beginner' },
+        { name: 'Web Exploitation', level: 'Beginner' },
+        { name: 'Reverse Engineering', level: 'Intermediate' },
+        { name: 'Pawning', level: 'Advanced' },
+        { name: 'Miscellaneous CTFs', level: 'Intermediate' }
       ],
-      speakers: ['John Smith - Ex-NSA Security Expert', 'Sarah Chen - Bug Bounty Hunter'],
-  highlight: 'CTF with progressive challenges and prizes'
+      speakers: ['Hands On Training by CYSCOM'],
+      highlight: 'CTF with progressive challenges and prizes'
     },
     day2: {
-  title: 'Day 2: Cyber Security Summit',
-  subtitle: 'Learn & Network',
-  date: 'August 29, 2025',
-  time: '8:00 AM - 5:00 PM',
-  capacity: 'Free',
-  description: 'Expert talks, panels, and demos from industry leaders and law enforcement',
+      title: 'Day 2: Cyber Security Summit',
+      subtitle: 'Learn & Network',
+      date: 'August 29, 2025',
+      time: '8:00 AM - 5:00 PM',
+      capacity: 'Free',
+      description: 'Expert talks, panels, and demos from industry leaders and law enforcement',
       color: {
         primary: 'cyan',
         accent: 'blue',
         gradient: 'from-cyan-500 to-blue-500'
       },
       topics: [
-        { name: 'Digital Forensics & Evidence Collection', icon: '🔍', level: 'Advanced' },
-        { name: 'Incident Response Procedures', icon: '🚨', level: 'Intermediate' },
-        { name: 'Malware Analysis & Reverse Engineering', icon: '🦠', level: 'Advanced' },
-        { name: 'Security Information Event Management', icon: '📊', level: 'Intermediate' },
-        { name: 'Threat Hunting Techniques', icon: '🎯', level: 'Advanced' },
-        { name: 'Cryptographic Implementation', icon: '🔐', level: 'Expert' }
+        { name: 'SOC & SIEM Secrets', level: 'Advanced' },
+        { name: 'DIFR & Blue Teaming', level: 'Advanced' },
+        { name: 'Networking Hour', level: 'Networking' },
+        { name: 'Bug Bounty Buzz', level: 'Intermediate' },
+        { name: 'Red Team Live', level: 'Advanced' }
       ],
-      speakers: ['Dr. Mike Johnson - Digital Forensics Expert', 'Lisa Wang - SOC Manager'],
-  highlight: 'Cyber Security Summit with expert keynotes and panels'
+      speakers: ['Ms. Vidhya Kulkarn - Joint Director, CBI', 'Assistant Commissioner - Tamil Nadu Cyber Crime Branch','Mr. Sanjdai B.K - Cybersecurity NXXT','Ms. Neha K.J. - Cybersecurity NXXT', 'Mr. Kabish S. - BugCrowd'],
+      highlight: 'Cyber Security Summit with expert keynotes and panels'
     }
   };
 
