@@ -89,7 +89,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay }) => {
                 </span>
               </h2>
               <p className="text-gray-300 text-xl mb-8 leading-relaxed">
-                Welcome to the CyberConverge family! You'll receive a confirmation email with 
+                Welcome to the CyberConverge! You'll receive a confirmation email with 
                 event details, access credentials, and exclusive pre-event materials.
               </p>
               
