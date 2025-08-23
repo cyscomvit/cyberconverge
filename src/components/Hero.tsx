@@ -75,17 +75,17 @@ const Hero: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 mb-8">
                 <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm font-mono">
                   <div className="text-2xl font-bold text-emerald-400">AUG</div>
-                  <div className="text-3xl font-bold text-white">28-29</div>
+                  <div className="text-2xl font-bold text-white">28-29</div>
                   <div className="text-xl text-emerald-400">2025</div>
                 </div>
                 <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm font-mono">
                   <div className="text-2xl font-bold text-emerald-400">TIME</div>
-                  <div className="text-3xl font-bold text-white">8AM - 5PM</div>
+                  <div className="text-2xl  text-white">8AM - 5PM</div>
                   <div className="text-xl text-emerald-400"></div>
                 </div>
                 <div className="text-center p-4 border border-emerald-400/30 rounded-lg bg-gray-800/30 backdrop-blur-sm font-mono">
                   <div className="text-2xl font-bold text-emerald-400">VENUE</div>
-                  <div className="text-3xl font-bold text-white">KAMARAJ</div>
+                  <div className="text-xl  text-white">KAMARAJ</div>
                   <div className="text-xl text-emerald-400">AUDITORIUM</div>
                 </div>
               </div>

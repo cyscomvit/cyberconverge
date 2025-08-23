@@ -65,7 +65,7 @@ const EventDetails: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           
           {/* Asymmetrical Header */}
-          <div className="relative mb-24">
+          {/* <div className="relative mb-24">
             <div className="grid lg:grid-cols-12 gap-8 items-end">
               <div className="lg:col-span-7 lg:col-start-2">
                 <div className="relative">
@@ -91,12 +91,12 @@ const EventDetails: React.FC = () => {
             <p className="text-xl text-gray-300 max-w-3xl ml-auto mr-16 mt-8 leading-relaxed">
               CYBERCONVERGE unites the brightest minds in cybersecurity to exchange knowledge, build connections, and gain hands-on experience with the latest security technologies.
             </p>
-          </div>
+          </div> */}
 
           {/* Dynamic Highlights Layout */}
-          <div className="relative mb-32">
+          {/* <div className="relative mb-32">
             <div className="grid lg:grid-cols-12 gap-8">
-              {/* Large Feature - Spans 7 columns */}
+            
               <div className="lg:col-span-7">
                 <div className="group cyber-card h-full p-10 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-red-400/30 rounded-3xl backdrop-blur-sm hover:border-red-400/60 transition-all duration-700 transform hover:scale-[1.02] hover:-rotate-1">
                   <div className="flex items-start space-x-6">
@@ -119,7 +119,7 @@ const EventDetails: React.FC = () => {
                 </div>
               </div>
 
-              {/* Stacked Medium Features - Spans 5 columns */}
+     
               <div className="lg:col-span-5 space-y-8">
                 {highlights.slice(1).map((highlight, index) => {
                   const getBorderClass = (accent: string) => {
@@ -151,10 +151,10 @@ const EventDetails: React.FC = () => {
                 })}
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Diagonal Stats Section */}
-          <div className="relative mb-32">
+          {/* <div className="relative mb-32">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {stats.map((stat, index) => (
                 <div 
@@ -172,7 +172,7 @@ const EventDetails: React.FC = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
           {/* Event Partners Section */}
           <div className="relative mb-32">
