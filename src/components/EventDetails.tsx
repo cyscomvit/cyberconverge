@@ -218,13 +218,32 @@ const EventDetails: React.FC = () => {
               
               {/* Partnership Statement */}
               <div className="text-center partner-card-fade-in" style={{ animationDelay: '0.6s' }}>
-                <div className="bg-gradient-to-r from-gray-800/60 to-gray-900/60 border border-gray-700 rounded-xl p-8 max-w-4xl mx-auto">
-                  <h4 className="text-2xl font-bold text-cyan-400 mb-4">Collaborative Excellence</h4>
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    CyberConverge brings together the expertise of leading cybersecurity organizations,
-                    law enforcement agencies, and educational institutions to create an unparalleled learning experience
-                    that bridges theory with real-world application.
-                  </p>
+                <div className="bg-gradient-to-r from-gray-800/60 to-gray-900/60 border border-gray-700 rounded-2xl p-8 max-w-4xl mx-auto">
+                  <h4 className="text-2xl font-bold text-cyan-400 mb-2">Collaborative Excellence</h4>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 text-sm font-semibold mb-6">
+                    <Star className="w-4 h-4" /> Key Highlight
+                  </div>
+
+                  <div className="space-y-4 text-left sm:text-center">
+                    <div className="flex sm:justify-center items-start gap-3">
+                      <Award className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
+                      <p className="text-gray-200 text-lg leading-relaxed">
+                        <span className="font-semibold text-white">Chief Guest:</span> Ms. Vidhya Kulkarni, Joint Director, CBI 
+                      </p>
+                    </div>
+                    <div className="flex sm:justify-center items-start gap-3">
+                      <Shield className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
+                      <p className="text-gray-200 text-lg leading-relaxed">
+                        <span className="font-semibold text-white">Guest of Honour:</span> Assistant Commissioner, Tamil Nadu Cyber Crime Branch
+                      </p>
+                    </div>
+                    <div className="flex sm:justify-center items-start gap-3">
+                      <Users className="w-5 h-5 text-emerald-400 mt-1 flex-shrink-0" />
+                      <p className="text-gray-200 text-lg leading-relaxed">
+                        Featuring SOC analysts, penetration testers, bug bounty hunters, and more
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -314,6 +333,16 @@ const EventDetails: React.FC = () => {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                  {/* Melvin first */}
+                  <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-emerald-400/30">
+                    <div className="w-16 h-16 bg-emerald-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-emerald-400 font-bold text-xl">M</span>
+                    </div>
+                    <h5 className="text-white font-semibold mb-1">Melvin</h5>
+                    <p className="text-emerald-400 font-mono text-sm">+91 98765 43210</p>
+                    <p className="text-gray-400 text-xs mt-1">Summit Coordinator</p>
+                  </div>
+
                   <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-cyan-400/30">
                     <div className="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
                       <span className="text-cyan-400 font-bold text-xl">V</span>
@@ -330,15 +359,6 @@ const EventDetails: React.FC = () => {
                     <h5 className="text-white font-semibold mb-1">Harsh</h5>
                     <p className="text-purple-400 font-mono text-sm">+91 98906 62736</p>
                     <p className="text-gray-400 text-xs mt-1">Technical Support & Workshops</p>
-                  </div>
-                  
-                  <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-emerald-400/30">
-                    <div className="w-16 h-16 bg-emerald-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-emerald-400 font-bold text-xl">M</span>
-                    </div>
-                    <h5 className="text-white font-semibold mb-1">Melvin</h5>
-                    <p className="text-emerald-400 font-mono text-sm">+91 98765 43210</p>
-                    <p className="text-gray-400 text-xs mt-1">CTF & Competition Coordinator</p>
                   </div>
                 </div>
               </div>

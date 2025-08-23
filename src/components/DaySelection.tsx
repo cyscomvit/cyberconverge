@@ -10,12 +10,12 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
 
   const dayDetails = {
     day1: {
-      title: 'Day 1: Offensive Security',
-      subtitle: 'Attack & Penetrate',
-      date: 'March 15, 2025',
-      time: '9:00 AM - 6:00 PM',
-      capacity: '100 seats',
-      description: 'Master the art of ethical hacking and penetration testing',
+  title: 'Day 1: CTF Championship',
+  subtitle: 'Capture The Flag',
+  date: 'August 28, 2025',
+  time: '8:00 AM - 5:00 PM',
+  capacity: '₹150',
+  description: 'Compete in a high-energy Capture The Flag with progressive challenges and team play',
       color: {
         primary: 'emerald',
         accent: 'red',
@@ -30,15 +30,15 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
         { name: 'Physical Security Testing', icon: '🏢', level: 'Intermediate' }
       ],
       speakers: ['John Smith - Ex-NSA Security Expert', 'Sarah Chen - Bug Bounty Hunter'],
-      highlight: 'Live penetration testing demonstrations'
+  highlight: 'CTF with progressive challenges and prizes'
     },
     day2: {
-      title: 'Day 2: Defensive Security',
-      subtitle: 'Defend & Investigate',
-      date: 'March 16, 2025',
-      time: '9:00 AM - 6:00 PM',
-      capacity: '100 seats',
-      description: 'Learn advanced defensive strategies and forensic techniques',
+  title: 'Day 2: Cyber Security Summit',
+  subtitle: 'Learn & Network',
+  date: 'August 29, 2025',
+  time: '8:00 AM - 5:00 PM',
+  capacity: 'Free',
+  description: 'Expert talks, panels, and demos from industry leaders and law enforcement',
       color: {
         primary: 'cyan',
         accent: 'blue',
@@ -53,7 +53,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
         { name: 'Cryptographic Implementation', icon: '🔐', level: 'Expert' }
       ],
       speakers: ['Dr. Mike Johnson - Digital Forensics Expert', 'Lisa Wang - SOC Manager'],
-      highlight: 'Real-world incident response simulation'
+  highlight: 'Cyber Security Summit with expert keynotes and panels'
     }
   };
 
@@ -97,8 +97,8 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
           <div className="cyber-card relative overflow-hidden p-8 rounded-3xl bg-gradient-to-br from-emerald-500 to-lime-300 text-black shadow-2xl border border-emerald-400/30">
             <div className="grid md:grid-cols-3 gap-6 items-center">
               <div className="md:col-span-2">
-                <h2 className="text-4xl font-extrabold">Register for Both Days — Full Track</h2>
-                <p className="mt-2 text-lg text-black/80 max-w-2xl">Get the complete CyberConverge experience: offensive and defensive tracks, full access to labs, materials, and priority support. One signup — both days covered.</p>
+                <h2 className="text-4xl font-extrabold">Register for Both Days — CTF + Summit</h2>
+                <p className="mt-2 text-lg text-black/80 max-w-2xl">Get the complete CyberConverge experience: Day 1 CTF and Day 2 Cyber Security Summit. One signup — both days covered.</p>
 
                 <div className="mt-6 flex items-center gap-4">
                   <button
