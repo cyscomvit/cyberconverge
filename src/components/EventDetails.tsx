@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Clock, MapPin, Users, Shield, Zap, Target, Award, Code, Lock, Eye, Cpu, Star, Trophy, Flame } from 'lucide-react';
+import { Calendar, Users, Shield, Zap, Target, Award, Code, Star, Trophy } from 'lucide-react';
 import Timeline from './Timeline';
 
 const EventDetails: React.FC = () => {
@@ -30,25 +30,18 @@ const EventDetails: React.FC = () => {
     }
   ];
 
-  const workshops = [
-    { icon: Lock, title: 'Advanced Cryptanalysis', time: '10:00 AM', difficulty: 'Expert' },
-    { icon: Eye, title: 'Digital Forensics Lab', time: '11:30 AM', difficulty: 'Intermediate' },
-    { icon: Cpu, title: 'Hardware Exploitation', time: '2:00 PM', difficulty: 'Advanced' },
-    { icon: Flame, title: 'Social Engineering', time: '3:30 PM', difficulty: 'Beginner' }
-  ];
+  // Removed unused workshops array
 
   const speakers = [
     { 
       name: 'Dr. Geetha', 
       role: 'Faculty Coordinator', 
-      specialty: 'Network Security & Threat Intelligence',
-      sessions: 2
+      specialty: 'CYSCOM VIT CHENNAI'
     },
     { 
       name: 'Dr. P. Nithyanandam', 
       role: 'Faculty Coordinator', 
-      specialty: 'Digital Forensics & Incident Response',
-      sessions: 3
+      specialty: 'CYSCOM VIT CHENNAI'
     }
   ];
 
@@ -182,6 +175,62 @@ const EventDetails: React.FC = () => {
             </div>
           </div>
 
+          {/* Event Partners Section */}
+          <div className="relative mb-32">
+            <div className="max-w-7xl mx-auto">
+              {/* Section Header */}
+              <div className="text-center mb-12">
+                <h3 className="text-4xl font-bold text-white mb-4">Our Partners</h3>
+                <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+                  Collaborating with leading organizations in cybersecurity, law enforcement, and technical education
+                </p>
+              </div>
+              
+              {/* Auto-scrolling Partners Section */}
+              <div className="relative py-16 mb-16 bg-gray-900/80 backdrop-blur-sm w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
+                <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
+                <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+                
+                <div className="marquee-container overflow-hidden px-8">
+                  <div className="marquee animate-scroll flex items-center space-x-20">
+                    {/* Partners - First Set */}
+                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/project safe.png" alt="Project SAFE logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/CBI.png" alt="CBI logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    
+                    {/* Partners - Duplicated Set for Seamless Scrolling */}
+                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/project safe.png" alt="Project SAFE logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/CBI.png" alt="CBI logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    
+                    {/* Partners - Triple Set for Extra Seamless Scrolling */}
+                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/project safe.png" alt="Project SAFE logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/CBI.png" alt="CBI logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Partnership Statement */}
+              <div className="text-center partner-card-fade-in" style={{ animationDelay: '0.6s' }}>
+                <div className="bg-gradient-to-r from-gray-800/60 to-gray-900/60 border border-gray-700 rounded-xl p-8 max-w-4xl mx-auto">
+                  <h4 className="text-2xl font-bold text-cyan-400 mb-4">Collaborative Excellence</h4>
+                  <p className="text-gray-300 text-lg leading-relaxed">
+                    CyberConverge brings together the expertise of leading cybersecurity organizations,
+                    law enforcement agencies, and educational institutions to create an unparalleled learning experience
+                    that bridges theory with real-world application.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Asymmetrical Workshop Schedule */}
           <div className="relative mb-32">
             <Timeline />
@@ -249,10 +298,7 @@ const EventDetails: React.FC = () => {
                           <div className="flex-1">
                             <h5 className="text-lg font-semibold text-white">{speaker.name}</h5>
                             <p className="text-purple-400 text-sm mb-2">{speaker.role}</p>
-                            <p className="text-gray-400 text-sm mb-3">{speaker.specialty}</p>
-                            <span className="inline-block px-3 py-1 bg-purple-400/20 text-purple-400 text-xs font-medium rounded-full">
-                              {speaker.sessions} Sessions
-                            </span>
+                            <p className="text-gray-400 text-sm">{speaker.specialty}</p>
                           </div>
                         </div>
                       </div>
@@ -268,7 +314,7 @@ const EventDetails: React.FC = () => {
                   <p className="text-gray-400">Available for registration assistance and event queries</p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                   <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-cyan-400/30">
                     <div className="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
                       <span className="text-cyan-400 font-bold text-xl">V</span>
@@ -282,114 +328,19 @@ const EventDetails: React.FC = () => {
                     <div className="w-16 h-16 bg-purple-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
                       <span className="text-purple-400 font-bold text-xl">N</span>
                     </div>
-                    <h5 className="text-white font-semibold mb-1">Niharga</h5>
-                    <p className="text-purple-400 font-mono text-sm">+91 96061 49532</p>
+                    <h5 className="text-white font-semibold mb-1">Harsh</h5>
+                    <p className="text-purple-400 font-mono text-sm">+91 98906 62736</p>
                     <p className="text-gray-400 text-xs mt-1">Technical Support & Workshops</p>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Event Partners Section */}
-          <div className="relative mb-32">
-            <div className="max-w-7xl mx-auto">
-
-              {/* Section Header */}
-              <div className="text-center mb-16">
-                <h3 className="text-4xl font-bold text-white mb-4">Our Partners</h3>
-                <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-                  Collaborating with leading organizations in cybersecurity, law enforcement, and technical education
-                </p>
-              </div>
-
-              {/* Partners Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-
-                {/* T.A.S.C - Featured Partner */}
-                <div className="lg:col-span-2 partner-card-slide-up" style={{ animationDelay: '0.1s' }}>
-                  <div className="group bg-gray-800/50 border border-gray-700 rounded-xl p-8 h-full hover:border-cyan-400/50 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-400/10">
-                    <div className="flex items-center space-x-6 h-full">
-                      <div className="flex-shrink-0 w-20 h-20 bg-white rounded-xl p-3 group-hover:scale-110 transition-transform duration-300">
-                        <img src="/Tasc.png" alt="T.A.S.C." className="w-full h-full object-contain" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">T.A.S.C.</h4>
-                        <p className="text-cyan-400 font-medium mb-3">Technical Advisory & Security Council</p>
-                        <p className="text-gray-400 leading-relaxed">Leading cybersecurity research and advisory organization providing expert guidance</p>
-                      </div>
+                  
+                  <div className="text-center p-4 bg-gray-800/50 rounded-lg border border-emerald-400/30">
+                    <div className="w-16 h-16 bg-emerald-400/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-emerald-400 font-bold text-xl">M</span>
                     </div>
+                    <h5 className="text-white font-semibold mb-1">Melvin</h5>
+                    <p className="text-emerald-400 font-mono text-sm">+91 98765 43210</p>
+                    <p className="text-gray-400 text-xs mt-1">CTF & Competition Coordinator</p>
                   </div>
-                </div>
-
-                {/* Project SAFE */}
-                <div className="partner-card-slide-up" style={{ animationDelay: '0.2s' }}>
-                  <div className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 h-full hover:border-purple-400/50 transition-all duration-500 hover:shadow-xl hover:shadow-purple-400/10">
-                    <div className="text-center h-full flex flex-col justify-center">
-                      <div className="w-16 h-16 bg-white rounded-xl p-3 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <img src="/project safe.png" alt="Project SAFE" className="w-full h-full object-contain" />
-                      </div>
-                      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors duration-300">Project SAFE</h4>
-                      <p className="text-purple-400 text-sm font-medium mb-3">Security Awareness & Forensic Education</p>
-                      <p className="text-gray-400 text-sm">Cybersecurity education and awareness initiative</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CBI */}
-                <div className="partner-card-slide-up" style={{ animationDelay: '0.3s' }}>
-                  <div className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 h-full hover:border-red-400/50 transition-all duration-500 hover:shadow-xl hover:shadow-red-400/10">
-                    <div className="text-center h-full flex flex-col justify-center">
-                      <div className="w-16 h-16 bg-white rounded-xl p-3 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <img src="/CBI.png" alt="CBI" className="w-full h-full object-contain" />
-                      </div>
-                      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors duration-300">CBI</h4>
-                      <p className="text-red-400 text-sm font-medium mb-3">Central Bureau of Investigation</p>
-                      <p className="text-gray-400 text-sm">Premier investigation agency of India</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Tamil Nadu Police - Featured Partner */}
-                <div className="lg:col-span-2 partner-card-slide-up" style={{ animationDelay: '0.4s' }}>
-                  <div className="group bg-gray-800/50 border border-gray-700 rounded-xl p-8 h-full hover:border-green-400/50 transition-all duration-500 hover:shadow-xl hover:shadow-green-400/10">
-                    <div className="flex items-center space-x-6 h-full">
-                      <div className="flex-shrink-0 w-20 h-20 bg-white rounded-xl p-3 group-hover:scale-110 transition-transform duration-300">
-                        <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police" className="w-full h-full object-contain" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-2xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors duration-300">Tamil Nadu Police</h4>
-                        <p className="text-green-400 font-medium mb-3">Cyber Crime Investigation Wing</p>
-                        <p className="text-gray-400 leading-relaxed">State police cybercrime division ensuring digital safety and security</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Altered Security */}
-                <div className="partner-card-slide-up" style={{ animationDelay: '0.5s' }}>
-                  <div className="group bg-gray-800/50 border border-gray-700 rounded-xl p-6 h-full hover:border-yellow-400/50 transition-all duration-500 hover:shadow-xl hover:shadow-yellow-400/10">
-                    <div className="text-center h-full flex flex-col justify-center">
-                      <div className="w-16 h-16 bg-white rounded-xl p-3 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <img src="/Altered Security.png" alt="Altered Security" className="w-full h-full object-contain" />
-                      </div>
-                      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors duration-300">Altered Security</h4>
-                      <p className="text-yellow-400 text-sm font-medium mb-3">Security Solutions</p>
-                      <p className="text-gray-400 text-sm">Innovative cybersecurity solutions provider</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Partnership Statement */}
-              <div className="text-center partner-card-fade-in" style={{ animationDelay: '0.6s' }}>
-                <div className="bg-gradient-to-r from-gray-800/60 to-gray-900/60 border border-gray-700 rounded-xl p-8 max-w-4xl mx-auto">
-                  <h4 className="text-2xl font-bold text-cyan-400 mb-4">Collaborative Excellence</h4>
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    CyberConverge brings together the expertise of leading cybersecurity organizations,
-                    law enforcement agencies, and educational institutions to create an unparalleled learning experience
-                    that bridges theory with real-world application.
-                  </p>
                 </div>
               </div>
             </div>

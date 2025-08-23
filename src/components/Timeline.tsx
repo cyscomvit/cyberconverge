@@ -5,7 +5,7 @@ interface TimelineEvent {
   time: string;
   title: string;
   description: string;
-  icon: React.ComponentType<any> | string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | string;
   type: 'workshop' | 'session' | 'break' | 'networking' | 'competition';
 }
 
@@ -164,7 +164,7 @@ const Timeline: React.FC = () => {
   return (
     <div className="relative">
       {/* Section Header */}
-      <div className="text-center mb-16">
+      <div className="text-center mb-16 ">
   <h3 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-700 mb-6">
           Event Timeline
         </h3>
@@ -250,9 +250,14 @@ const Timeline: React.FC = () => {
                 </div>
               </div>
 
-              {/* Time Display on Opposite Side */}
-              <div className={`w-5/12 ${index % 2 === 0 ? 'pl-12' : 'pr-72'}`}>
-                <div className={`text-right ${index % 2 !== 0 ? 'text-left' : ''}`}>
+              {/* Time Display on Opposite Side with Connecting Line */}
+              <div className={`w-5/12 ${index % 2 === 0 ? 'pl-12' : 'pr-12'} relative`}>
+                {/* Horizontal Connecting Line */}
+                <div className={`absolute top-1/2 transform -translate-y-1/2 ${
+                  index % 2 === 0 ? 'right-0 left-[10px]' : 'left-0 right-[10px]'
+                } h-1 bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-40`}></div>
+                
+                <div className={`relative z-10 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
                   <div className="inline-block px-6 py-3 bg-gray-800/40 border border-gray-700 rounded-xl backdrop-blur-sm">
                     <div className="text-2xl font-bold text-green-400 mb-1">
                       {event.time.split(' - ')[0]}

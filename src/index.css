@@ -212,6 +212,34 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Partners section auto-scrolling */
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+}
+
+.animate-scroll {
+  animation: scroll 60s linear infinite;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50%));
+  }
+}
+
+/* Custom filter for partner logos with transparent backgrounds */
+
+
 /* Custom selection colors */
 ::selection {
   background: rgba(0, 255, 110, 0.28);

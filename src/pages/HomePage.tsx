@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import EventDetails from '../components/EventDetails';
 import Footer from '../components/Footer';
 import AnimatedBackground from '../components/AnimatedBackground';
+import VenueMap from '../components/VenueMap';
 
 const HomePage: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage: React.FC = () => {
       <AnimatedBackground />
       <Hero />
       <EventDetails />
+      <VenueMap />
       <Footer />
     </div>
   );
