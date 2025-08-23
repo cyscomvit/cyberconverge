@@ -187,32 +187,32 @@ const EventDetails: React.FC = () => {
               </div>
               
               {/* Auto-scrolling Partners Section */}
-              <div className="relative py-16 mb-16 bg-gray-900/80 backdrop-blur-sm w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
-                <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
-                <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+              <div className="relative py-10 sm:py-12 md:py-16 mb-16 bg-gray-900/80 backdrop-blur-sm w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
+                <div className="absolute top-0 left-0 w-12 sm:w-16 md:w-24 h-full bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
+                <div className="absolute top-0 right-0 w-12 sm:w-16 md:w-24 h-full bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
                 
-                <div className="marquee-container overflow-hidden px-8">
-                  <div className="marquee animate-scroll flex items-center space-x-20">
+                <div className="marquee-container overflow-hidden px-4 sm:px-6 md:px-8">
+                  <div className="marquee animate-scroll flex items-center space-x-8 sm:space-x-12 md:space-x-20">
                     {/* Partners - First Set */}
-                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/project safe.png" alt="Project SAFE logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/CBI.png" alt="CBI logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/project safe.png" alt="Project SAFE logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/CBI.png" alt="CBI logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     
                     {/* Partners - Duplicated Set for Seamless Scrolling */}
-                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/project safe.png" alt="Project SAFE logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/CBI.png" alt="CBI logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/project safe.png" alt="Project SAFE logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/CBI.png" alt="CBI logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     
                     {/* Partners - Triple Set for Extra Seamless Scrolling */}
-                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/project safe.png" alt="Project SAFE logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/CBI.png" alt="CBI logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
-                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/project safe.png" alt="Project SAFE logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/CBI.png" alt="CBI logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/Altered Security.png" alt="Altered Security logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                   </div>
                 </div>
               </div>
