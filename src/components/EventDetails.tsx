@@ -198,6 +198,7 @@ const EventDetails: React.FC = () => {
                     <img src="/CBI.png" alt="CBI logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     <img src="/Altered Security.png" alt="Altered Security logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/delta.png" alt="Delta logo" className="h-8 sm:h-10 md:h-16 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     
                     {/* Partners - Duplicated Set for Seamless Scrolling */}
                     <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
@@ -205,6 +206,7 @@ const EventDetails: React.FC = () => {
                     <img src="/CBI.png" alt="CBI logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     <img src="/Altered Security.png" alt="Altered Security logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/delta.png" alt="Delta logo" className="h-8 sm:h-10 md:h-16 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     
                     {/* Partners - Triple Set for Extra Seamless Scrolling */}
                     <img src="/Tasc.png" alt="T.A.S.C. logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
@@ -212,6 +214,7 @@ const EventDetails: React.FC = () => {
                     <img src="/CBI.png" alt="CBI logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     <img src="/Tamil Nadu Police.png" alt="Tamil Nadu Police logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                     <img src="/Altered Security.png" alt="Altered Security logo" className="h-20 sm:h-28 md:h-40 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
+                    <img src="/delta.png" alt="Delta logo" className="h-8 sm:h-10 md:h-16 w-auto object-contain transition-transform duration-300 transform hover:scale-110" />
                   </div>
                 </div>
               </div>
