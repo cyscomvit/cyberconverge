@@ -32,14 +32,14 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const getDayInfo = (day: 'day1' | 'day2' | 'both') => {
     const dayInfo = {
       day1: {
-        title: 'Day 1: Offensive Security',
+        title: 'Day 1: CTF Championship',
         date: 'August 28, 2025',
         description: 'Focus on penetration testing, web security, and offensive techniques',
         color: 'emerald',
         topics: ['Web Application Testing', 'Network Penetration', 'Social Engineering', 'OSINT Techniques']
       },
       day2: {
-        title: 'Day 2: Defensive Security',
+        title: 'Day 2: Cyber Security Summit',
         date: 'August 29, 2025', 
         description: 'Emphasis on digital forensics, incident response, and defensive strategies',
         color: 'cyan',
@@ -249,7 +249,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                   <li>Create an account / Log in using existing account <span className="text-cyan-300"><a href="https://eventhubcc.vit.ac.in/EventHub/login"><u>here</u></a></span> and return to this page.</li>
                   <img
                     src="/signup.png"
-                    alt="Day 1 - Offensive Security"
+                    alt="Day 1 - CTF Championship"
                   />
                   <li>After Successful login use <span className="font-medium text-emerald-300"><a href="https://eventhubcc.vit.ac.in/EventHub/eventPreview?id=0&categoryType=&eid=222"><u>this link</u></a></span> to register for Day 1 of CyberConverge.</li>
                   <li>If you face any problems, Contact us on WhatsApp at <span className="text-cyan-300">9324384817</span> for assistance.</li>

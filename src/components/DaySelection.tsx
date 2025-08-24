@@ -51,7 +51,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
         { name: 'Bug Bounty Buzz', level: 'Intermediate' },
         { name: 'Red Team Live', level: 'Advanced' }
       ],
-      speakers: ['Ms. Vidhya Kulkarn - Joint Director, CBI', 'Assistant Commissioner - Tamil Nadu Cyber Crime Branch','Mr. Sanjdai B.K - Cybersecurity NXXT','Ms. Neha K.J. - Cybersecurity NXXT', 'Mr. Kabish S. - BugCrowd'],
+      speakers: ['Ms. Vidhya Kulkarn - Joint Director, CBI', 'Assistant Commissioner - Tamil Nadu Cyber Crime Branch','Mr. Sanjsai B.K - Cybersecurity NXXT','Ms. Neha K.J. - Cybersecurity NXXT', 'Mr. Kabish S. - BugCrowd'],
       highlight: 'Cyber Security Summit with expert keynotes and panels'
     }
   };

@@ -114,7 +114,7 @@ const RegistrationPage: React.FC = () => {
                   Welcome, {user?.displayName?.split(' ')[0]}!
                 </p>
                 <p className="text-gray-400 text-xs">
-                  Registering for {selectedDay === 'day1' ? 'Offensive Security' : (selectedDay === 'day2' ? 'Defensive Security' : 'Both Days')}
+                  Registering for {selectedDay === 'day1' ? 'CTF Championship' : (selectedDay === 'day2' ? 'Cyber Security Summit' : 'Both Days')}
                 </p>
               </div>
             </div>

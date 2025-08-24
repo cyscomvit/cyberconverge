@@ -14,12 +14,12 @@ The security rules ensure that:
 ## Collections
 
 ### day1 Collection
-- Stores registrations for Day 1 (Offensive Security)
+- Stores registrations for Day 1 (CTF Championship)
 - Users can create, read, and update their own registrations
 - Only admins can delete registrations
 
 ### day2 Collection
-- Stores registrations for Day 2 (Defensive Security)
+- Stores registrations for Day 2 (Cyber Security Summit)
 - Users can create, read, and update their own registrations
 - Only admins can delete registrations
 
