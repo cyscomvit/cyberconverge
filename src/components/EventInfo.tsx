@@ -99,7 +99,7 @@ const EventInfo: React.FC = () => {
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-purple-400 mb-2">15+</div>
-                <div className="text-gray-300">Industry Speakers</div>
+                <div className="text-gray-300">Sessions</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-green-400 mb-2">48hrs</div>
