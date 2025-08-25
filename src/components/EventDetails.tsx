@@ -342,7 +342,7 @@ const EventDetails: React.FC = () => {
                       <span className="text-emerald-400 font-bold text-xl">M</span>
                     </div>
                     <h5 className="text-white font-semibold mb-1">Melvin</h5>
-                    <p className="text-emerald-400 font-mono text-sm">+91 98765 43210</p>
+                    <p className="text-emerald-400 font-mono text-sm">+91 90800 59840</p>
                     <p className="text-gray-400 text-xs mt-1">Summit Coordinator</p>
                   </div>
 
