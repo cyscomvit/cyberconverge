@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { User, Mail, Phone, GraduationCap, Send, CheckCircle, Zap, Shield, Target, AlertCircle } from 'lucide-react';
 import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
@@ -26,6 +26,36 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const [focusedField, setFocusedField] = useState('');
   const [showDay1InstructionAfterBoth, setShowDay1InstructionAfterBoth] = useState(false);
   const [alreadyRegisteredDay2, setAlreadyRegisteredDay2] = useState(false);
+  const [day2RegistrationCount, setDay2RegistrationCount] = useState<number | null>(null);
+  const [isDay2RegistrationClosed, setIsDay2RegistrationClosed] = useState(false);
+  const [isCheckingLimit, setIsCheckingLimit] = useState(false);
+
+  const DAY2_REGISTRATION_LIMIT = 300;
+
+  // Check day 2 registration count on component mount
+  useEffect(() => {
+    const checkDay2RegistrationLimit = async () => {
+      if (selectedDay === 'day2' || selectedDay === 'both') {
+        setIsCheckingLimit(true);
+        try {
+          const day2Query = query(collection(db, 'day2'));
+          const day2Snapshot = await getDocs(day2Query);
+          const currentCount = day2Snapshot.size;
+          
+          setDay2RegistrationCount(currentCount);
+          setIsDay2RegistrationClosed(currentCount >= DAY2_REGISTRATION_LIMIT);
+        } catch (error) {
+          console.error('Error checking day2 registration count:', error);
+          // If we can't check, allow registration to continue
+          setIsDay2RegistrationClosed(false);
+        } finally {
+          setIsCheckingLimit(false);
+        }
+      }
+    };
+
+    checkDay2RegistrationLimit();
+  }, [selectedDay]);
 
   // Interests removed - no longer using interest selections
 
@@ -74,6 +104,20 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
     
     try {
       if (!user) throw new Error('Not authenticated');
+      
+      // Check day2 registration limit before proceeding
+      if (selectedDay === 'day2' || selectedDay === 'both') {
+        const day2Query = query(collection(db, 'day2'));
+        const day2Snapshot = await getDocs(day2Query);
+        const currentCount = day2Snapshot.size;
+        
+        if (currentCount >= DAY2_REGISTRATION_LIMIT) {
+          setIsDay2RegistrationClosed(true);
+          setIsSubmitting(false);
+          return;
+        }
+      }
+      
       // Check if user already has an entry in day2
       const day2Query = query(collection(db, 'day2'), where('userId', '==', user.uid));
       const day2Snapshot = await getDocs(day2Query);
@@ -108,6 +152,15 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
       
       // Save to appropriate collection(s)
       if (selectedDay === 'both') {
+        // Double-check day2 limit one more time before writing
+        const finalDay2Query = query(collection(db, 'day2'));
+        const finalDay2Snapshot = await getDocs(finalDay2Query);
+        if (finalDay2Snapshot.size >= DAY2_REGISTRATION_LIMIT) {
+          setIsDay2RegistrationClosed(true);
+          setIsSubmitting(false);
+          return;
+        }
+        
         // Write to both collections
         const docRef1 = await addDoc(collection(db, 'day1'), submissionData);
         const docRef2 = await addDoc(collection(db, 'day2'), submissionData);
@@ -277,7 +330,68 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
               </div>
             )}
 
-            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && !(alreadyRegisteredDay2 && selectedDay === 'day2') && (
+            {/* Day 2 Registration Closed Notice */}
+            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && 
+              !(alreadyRegisteredDay2 && selectedDay === 'day2') && 
+              isDay2RegistrationClosed && 
+              (selectedDay === 'day2' || selectedDay === 'both') && (
+              <div className="cyber-card p-8 bg-gradient-to-br from-red-800/40 to-red-900/60 border border-red-500/50 rounded-2xl backdrop-blur-sm">
+                <div className="text-center">
+                  <AlertCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-red-400 mb-4">Day 2 Registration Closed</h3>
+                  <p className="text-gray-300 mb-4">
+                    We've reached the maximum capacity of {DAY2_REGISTRATION_LIMIT} participants for Day 2: Cyber Security Summit.
+                  </p>
+                  <p className="text-gray-300 mb-6">
+                    Registration for this day is now closed. Thank you for your interest!
+                  </p>
+                  <div className="bg-red-400/10 border border-red-400/20 rounded-xl p-4 mb-6">
+                    <p className="text-red-300 text-sm">
+                      <strong>Current registrations:</strong> {day2RegistrationCount || DAY2_REGISTRATION_LIMIT} / {DAY2_REGISTRATION_LIMIT}
+                    </p>
+                  </div>
+                  {selectedDay === 'both' && (
+                    <div className="mb-6">
+                      <p className="text-gray-300 mb-4">You can still register for Day 1:</p>
+                      <button
+                        onClick={() => setShowDay1InstructionAfterBoth(true)}
+                        className="px-6 py-3 bg-emerald-400 text-black rounded-lg font-semibold hover:bg-emerald-300 transition-colors duration-300"
+                      >
+                        Register for Day 1 Only
+                      </button>
+                    </div>
+                  )}
+                  <button 
+                    onClick={onBack} 
+                    className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
+                  >
+                    Back to Day Selection
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Loading check for day 2 limit */}
+            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && 
+              !(alreadyRegisteredDay2 && selectedDay === 'day2') && 
+              !isDay2RegistrationClosed &&
+              isCheckingLimit && 
+              (selectedDay === 'day2' || selectedDay === 'both') && (
+              <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400 mx-auto mb-4"></div>
+                  <h3 className="text-xl font-semibold text-emerald-400 mb-2">Checking availability...</h3>
+                  <p className="text-gray-300 text-sm">
+                    Verifying registration capacity for Day 2
+                  </p>
+                </div>
+              </div>
+            )}
+
+            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && 
+              !(alreadyRegisteredDay2 && selectedDay === 'day2') && 
+              !isDay2RegistrationClosed &&
+              !isCheckingLimit && (
               <form onSubmit={handleSubmit} className="space-y-8">
               {/* Personal Info Section */}
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm transform hover:scale-[1.01] transition-all duration-500">
@@ -473,10 +587,10 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
               <h4 className="text-xl font-bold text-cyan-400 mb-6">What You Get</h4>
               <div className="space-y-4">
                 {[
-                  { text: 'Hands-on Experience', color: 'text-white-400' },
-                  { text: 'Certificate of Participation', color: 'text-white-400' },
-                  { text: 'Networking Opportunities', color: 'text-white-400' },
-                  { text: 'Expert Mentoring', color: 'text-white-400' }
+                  { text: 'Hands-on Experience', color: 'text-white-400', icon: '🛠️' },
+                  { text: 'Certificate of Participation', color: 'text-white-400', icon: '📜' },
+                  { text: 'Networking Opportunities', color: 'text-white-400', icon: '🤝' },
+                  { text: 'Expert Mentoring', color: 'text-white-400', icon: '👨‍🏫' }
 
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
@@ -491,10 +605,26 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
             <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/60 to-gray-900/80 border border-purple-400/30 rounded-2xl backdrop-blur-sm transform -rotate-1 hover:rotate-0 transition-all duration-700">
               <h4 className="text-xl font-bold text-purple-400 mb-6">Event Highlights</h4>
               <div className="space-y-6">
-                <div className="text-center p-4 bg-purple-400/10 rounded-xl">
-                  <div className="text-3xl font-black text-white">500+</div>
-                  <div className="text-sm text-purple-400">Expected Participants</div>
-                </div>
+                {(selectedDay === 'day2' || selectedDay === 'both') ? (
+                  <div className={`text-center p-4 rounded-xl ${isDay2RegistrationClosed ? 'bg-red-400/10' : 'bg-emerald-400/10'}`}>
+                    <div className={`text-3xl font-black ${isDay2RegistrationClosed ? 'text-red-400' : 'text-emerald-400'}`}>
+                      {day2RegistrationCount !== null ? `${DAY2_REGISTRATION_LIMIT - (day2RegistrationCount || 0)}` : '...'}
+                    </div>
+                    <div className={`text-sm ${isDay2RegistrationClosed ? 'text-red-400' : 'text-emerald-400'}`}>
+                      {isDay2RegistrationClosed ? 'Registration Closed' : 'Spots Remaining (Day 2)'}
+                    </div>
+                    {day2RegistrationCount !== null && !isDay2RegistrationClosed && (
+                      <div className="text-xs text-gray-400 mt-1">
+                        {day2RegistrationCount} / {DAY2_REGISTRATION_LIMIT} registered
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="text-center p-4 bg-purple-400/10 rounded-xl">
+                    <div className="text-3xl font-black text-white">500+</div>
+                    <div className="text-sm text-purple-400">Expected Participants</div>
+                  </div>
+                )}
                 <div className="text-center p-4 bg-cyan-400/10 rounded-xl">
                   <div className="text-3xl font-black text-white">₹90K</div>
                   <div className="text-sm text-cyan-400">Prize Pool</div>
