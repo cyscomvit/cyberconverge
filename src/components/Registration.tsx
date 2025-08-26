@@ -302,9 +302,18 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                   <li>Create an account / Log in using existing account <span className="text-cyan-300"><a href="https://eventhubcc.vit.ac.in/EventHub/login"><u>here</u></a></span> and return to this page.</li>
                   <img
                     src="/signup.png"
-                    alt="Day 1 - CTF Championship"
+                    alt="Use eventHub"
                   />
                   <li>After Successful login use <span className="font-medium text-emerald-300"><a href="https://eventhubcc.vit.ac.in/EventHub/eventPreview?id=0&categoryType=&eid=222"><u>this link</u></a></span> to register for Day 1 of CyberConverge.</li>
+                  <img
+                    src="/event.png"
+                    alt="Use eventHub"
+                  />
+                  <li>If you chose Pay Later, go to your profile, and pay under the registered events section.</li>
+                  <img
+                    src="/pay.png"
+                    alt="Use eventHub"
+                  />
                   <li>If you face any problems, Contact us on WhatsApp at <span className="text-cyan-300">9324384817</span> for assistance.</li>
                 </ul>
                 <div className="mt-6">
