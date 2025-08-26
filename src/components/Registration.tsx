@@ -31,6 +31,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const [isCheckingLimit, setIsCheckingLimit] = useState(false);
 
   const DAY2_REGISTRATION_LIMIT = 300;
+  const DAY1_REGISTRATION_CLOSED = true; // Day 1 is now closed
 
   // Check day 2 registration count on component mount
   useEffect(() => {
@@ -104,6 +105,13 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
     
     try {
       if (!user) throw new Error('Not authenticated');
+      
+      // Check if Day 1 registration is closed
+      if ((selectedDay === 'day1' || selectedDay === 'both') && DAY1_REGISTRATION_CLOSED) {
+        alert('Day 1 registration is closed. Please select Day 2 only.');
+        setIsSubmitting(false);
+        return;
+      }
       
       // Check day2 registration limit before proceeding
       if (selectedDay === 'day2' || selectedDay === 'both') {
@@ -293,8 +301,40 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
           {/* Main Form - Spans 8 columns */}
           <div className="lg:col-span-8">
 
-            {/* Render sequence: Day1 instruction panel -> AlreadyRegistered notice -> Form */}
-            { (selectedDay === 'day1' || showDay1InstructionAfterBoth) && (
+            {/* Render sequence: Day1 closed notice -> Day1 instruction panel -> AlreadyRegistered notice -> Form */}
+            { (selectedDay === 'day1' || selectedDay === 'both') && DAY1_REGISTRATION_CLOSED && (
+              <div className="cyber-card p-8 bg-gradient-to-br from-red-800/40 to-red-900/60 border border-red-500/50 rounded-2xl backdrop-blur-sm">
+                <div className="text-center">
+                  <AlertCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-red-400 mb-4">Day 1 Registration Closed</h3>
+                  <p className="text-gray-300 mb-4">
+                    Day 1: CTF Championship has reached maximum capacity and registration is now closed.
+                  </p>
+                  <p className="text-gray-300 mb-6">
+                    Thank you for your interest in the CTF Championship!
+                  </p>
+                  {selectedDay === 'both' && (
+                    <div className="mb-6">
+                      <p className="text-gray-300 mb-4">You can still register for Day 2:</p>
+                      <button
+                        onClick={() => window.location.reload()} // This will reset to day selection
+                        className="px-6 py-3 bg-cyan-400 text-black rounded-lg font-semibold hover:bg-cyan-300 transition-colors duration-300"
+                      >
+                        Register for Day 2 Only
+                      </button>
+                    </div>
+                  )}
+                  <button 
+                    onClick={onBack} 
+                    className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
+                  >
+                    Back to Day Selection
+                  </button>
+                </div>
+              </div>
+            )}
+
+            { (selectedDay === 'day1' || (selectedDay === 'both' && !DAY1_REGISTRATION_CLOSED) || showDay1InstructionAfterBoth) && !DAY1_REGISTRATION_CLOSED && (
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl backdrop-blur-sm">
                 <h3 className="text-2xl font-bold text-emerald-400 mb-4">CyberConverge Day 1 Instructions</h3>
                 <p className="text-gray-300 mb-4">Please use VIT Chennai Event Hub to register for Day 1.</p>
@@ -322,7 +362,10 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
               </div>
             )}
 
-            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && alreadyRegisteredDay2 && selectedDay === 'day2' && (
+            { !(selectedDay === 'day1' && DAY1_REGISTRATION_CLOSED) && 
+              !(selectedDay === 'both' && DAY1_REGISTRATION_CLOSED) &&
+              !(selectedDay === 'day1' || (selectedDay === 'both' && !DAY1_REGISTRATION_CLOSED) || showDay1InstructionAfterBoth) && 
+              alreadyRegisteredDay2 && selectedDay === 'day2' && (
               <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-gray-700 rounded-2xl">
                 <h3 className="text-2xl font-bold text-emerald-400 mb-4">You're already registered for Day 2</h3>
                 <p className="text-gray-300 mb-4">We found an existing registration tied to your account.</p>
@@ -340,7 +383,9 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
             )}
 
             {/* Day 2 Registration Closed Notice */}
-            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && 
+            { !(selectedDay === 'day1' && DAY1_REGISTRATION_CLOSED) && 
+              !(selectedDay === 'both' && DAY1_REGISTRATION_CLOSED) &&
+              !(selectedDay === 'day1' || (selectedDay === 'both' && !DAY1_REGISTRATION_CLOSED) || showDay1InstructionAfterBoth) && 
               !(alreadyRegisteredDay2 && selectedDay === 'day2') && 
               isDay2RegistrationClosed && 
               (selectedDay === 'day2' || selectedDay === 'both') && (
@@ -381,7 +426,9 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
             )}
 
             {/* Loading check for day 2 limit */}
-            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && 
+            { !(selectedDay === 'day1' && DAY1_REGISTRATION_CLOSED) && 
+              !(selectedDay === 'both' && DAY1_REGISTRATION_CLOSED) &&
+              !(selectedDay === 'day1' || (selectedDay === 'both' && !DAY1_REGISTRATION_CLOSED) || showDay1InstructionAfterBoth) && 
               !(alreadyRegisteredDay2 && selectedDay === 'day2') && 
               !isDay2RegistrationClosed &&
               isCheckingLimit && 
@@ -397,7 +444,9 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
               </div>
             )}
 
-            { !(selectedDay === 'day1' || showDay1InstructionAfterBoth) && 
+            { !(selectedDay === 'day1' && DAY1_REGISTRATION_CLOSED) && 
+              !(selectedDay === 'both' && DAY1_REGISTRATION_CLOSED) &&
+              !(selectedDay === 'day1' || (selectedDay === 'both' && !DAY1_REGISTRATION_CLOSED) || showDay1InstructionAfterBoth) && 
               !(alreadyRegisteredDay2 && selectedDay === 'day2') && 
               !isDay2RegistrationClosed &&
               !isCheckingLimit && (

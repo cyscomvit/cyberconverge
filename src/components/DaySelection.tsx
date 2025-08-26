@@ -91,101 +91,126 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
           </p>
         </div>
 
-        {/* Prominent CTA: Register Both Days (primary action) */}
-        <div className="mb-10">
-          <div className="cyber-card relative overflow-hidden p-8 rounded-3xl bg-gradient-to-br from-emerald-500 to-lime-300 text-black shadow-2xl border border-emerald-400/30">
-            <div className="grid md:grid-cols-3 gap-6 items-center">
-              <div className="md:col-span-2">
-                <h2 className="text-4xl font-extrabold">Register for Both Days — CTF + Summit</h2>
-                <p className="mt-2 text-lg text-black/80 max-w-2xl">Get the complete CyberConverge experience: Day 1 CTF and Day 2 Cyber Security Summit. One signup — both days covered.</p>
-
-                <div className="mt-6 flex items-center gap-4">
-                  <button
-                    onClick={() => onDaySelect('both')}
-                    className="px-8 py-4 bg-black text-emerald-300 font-bold rounded-2xl text-xl shadow-lg hover:scale-105 transform transition-all duration-200"
-                    aria-label="Register for both days"
-                  >
-                    Register for Both Days
-                  </button>
-
-                  {/* <a href="#" className="px-4 py-3 bg-black/10 text-black/80 rounded-lg font-medium hover:bg-black/20">Why both?</a> */}
-                </div>
-              </div>
-
-              <div className="hidden md:flex items-center justify-center">
-                <img src="/cyscom.png" alt="Both days" />
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Day Selection Cards */}
         <div className="grid lg:grid-cols-2 gap-8">
           {Object.entries(dayDetails).map(([dayKey, day]) => {
             const isExpanded = expandedDay === dayKey;
             const dayTyped = dayKey as 'day1' | 'day2';
+            const isDay1Full = dayKey === 'day1'; // Day 1 is now full
             
             return (
               <div
                 key={dayKey}
-                className={`cyber-card relative bg-gradient-to-br from-gray-800/60 to-gray-900/80 border rounded-3xl backdrop-blur-sm transition-all duration-700 transform hover:scale-105 ${
-                  isExpanded
-                    ? `border-${day.color.primary}-400/50 shadow-2xl shadow-${day.color.primary}-400/20`
-                    : 'border-gray-700 hover:border-gray-600'
-                } ${isExpanded ? 'lg:col-span-2' : ''}`}
+                className={`cyber-card relative bg-gradient-to-br backdrop-blur-sm transition-all duration-700 transform hover:scale-105 ${
+                  isDay1Full 
+                    ? 'from-red-800/60 to-red-900/80 border-red-500/50 opacity-75'
+                    : `from-gray-800/60 to-gray-900/80 ${isExpanded
+                        ? `border-${day.color.primary}-400/50 shadow-2xl shadow-${day.color.primary}-400/20`
+                        : 'border-gray-700 hover:border-gray-600'
+                      }`
+                } border rounded-3xl ${isExpanded ? 'lg:col-span-2' : ''}`}
               >
                 {/* Card Header */}
                 <div 
-                  className="p-8 cursor-pointer"
-                  onClick={() => handleDayClick(dayTyped)}
+                  className={`p-8 ${isDay1Full ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                  onClick={() => !isDay1Full && handleDayClick(dayTyped)}
                 >
+                  {/* Day 1 Full Banner */}
+                  {isDay1Full && (
+                    <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      SEATS FULL
+                    </div>
+                  )}
+                  
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center space-x-4">
-                      <div className={`p-4 rounded-xl bg-gradient-to-r ${day.color.gradient} shadow-lg`}>
+                      <div className={`p-4 rounded-xl shadow-lg ${
+                        isDay1Full 
+                          ? 'bg-gray-600' 
+                          : `bg-gradient-to-r ${day.color.gradient}`
+                      }`}>
                         {dayKey === 'day1' ? (
-                          <Target className="w-8 h-8 text-white" />
+                          <Target className={`w-8 h-8 ${isDay1Full ? 'text-gray-400' : 'text-white'}`} />
                         ) : (
                           <Shield className="w-8 h-8 text-white" />
                         )}
                       </div>
                       <div>
-                        <h3 className={`text-3xl font-bold text-${day.color.primary}-400 mb-2`}>
+                        <h3 className={`text-3xl font-bold mb-2 ${
+                          isDay1Full 
+                            ? 'text-red-400' 
+                            : `text-${day.color.primary}-400`
+                        }`}>
                           {day.title}
+                          {isDay1Full && (
+                            <span className="ml-3 text-lg text-red-300">(CLOSED)</span>
+                          )}
                         </h3>
-                        <p className="text-gray-400 text-lg">{day.subtitle}</p>
+                        <p className={`text-lg ${
+                          isDay1Full ? 'text-gray-500' : 'text-gray-400'
+                        }`}>{day.subtitle}</p>
                       </div>
                     </div>
-                    <ChevronRight 
-                      className={`w-6 h-6 text-${day.color.primary}-400 transition-transform duration-300 ${
-                        isExpanded ? 'rotate-90' : ''
-                      }`} 
-                    />
+                    {!isDay1Full && (
+                      <ChevronRight 
+                        className={`w-6 h-6 text-${day.color.primary}-400 transition-transform duration-300 ${
+                          isExpanded ? 'rotate-90' : ''
+                        }`} 
+                      />
+                    )}
                   </div>
 
                   {/* Basic Info */}
                   <div className="grid md:grid-cols-3 gap-4 mb-6">
-                    <div className="flex items-center space-x-2 text-gray-300">
-                      <Calendar className={`w-5 h-5 text-${day.color.primary}-400`} />
+                    <div className={`flex items-center space-x-2 ${
+                      isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                    }`}>
+                      <Calendar className={`w-5 h-5 ${
+                        isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                      }`} />
                       <span className="font-medium">{day.date}</span>
                     </div>
-                    <div className="flex items-center space-x-2 text-gray-300">
-                      <Clock className={`w-5 h-5 text-${day.color.primary}-400`} />
+                    <div className={`flex items-center space-x-2 ${
+                      isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                    }`}>
+                      <Clock className={`w-5 h-5 ${
+                        isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                      }`} />
                       <span className="font-medium">{day.time}</span>
                     </div>
-                    <div className="flex items-center space-x-2 text-gray-300">
-                      <Users className={`w-5 h-5 text-${day.color.primary}-400`} />
-                      <span className="font-medium">{day.capacity}</span>
+                    <div className={`flex items-center space-x-2 ${
+                      isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                    }`}>
+                      <Users className={`w-5 h-5 ${
+                        isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                      }`} />
+                      <span className="font-medium">
+                        {isDay1Full ? 'SEATS FULL' : day.capacity}
+                      </span>
                     </div>
                   </div>
 
-                  <p className="text-gray-300 text-lg leading-relaxed">
-                    {day.description}
+                  <p className={`text-lg leading-relaxed ${
+                    isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                  }`}>
+                    {isDay1Full 
+                      ? "Day 1 CTF Championship has reached maximum capacity. Registration is now closed." 
+                      : day.description
+                    }
                   </p>
 
-                  <div className={`mt-4 inline-flex items-center px-4 py-2 bg-${day.color.primary}-400/20 border border-${day.color.primary}-400/30 rounded-full`}>
-                    <Zap className={`w-4 h-4 text-${day.color.primary}-400 mr-2`} />
-                    <span className={`text-${day.color.primary}-400 font-semibold text-sm`}>
-                      {day.highlight}
+                  <div className={`mt-4 inline-flex items-center px-4 py-2 rounded-full border ${
+                    isDay1Full 
+                      ? 'bg-red-400/20 border-red-400/30' 
+                      : `bg-${day.color.primary}-400/20 border-${day.color.primary}-400/30`
+                  }`}>
+                    <Zap className={`w-4 h-4 mr-2 ${
+                      isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                    }`} />
+                    <span className={`font-semibold text-sm ${
+                      isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                    }`}>
+                      {isDay1Full ? 'Registration Closed' : day.highlight}
                     </span>
                   </div>
                 </div>
@@ -203,7 +228,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                           {day.topics.map((topic, index) => (
                             <div key={index} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-xl border border-gray-700/50">
                               <div className="flex items-center space-x-3">
-                                <span className="text-2xl">{topic.icon}</span>
+                                <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
                                 <div>
                                   <p className="text-white font-medium">{topic.name}</p>
                                   <p className={`text-${day.color.primary}-400 text-sm`}>{topic.level}</p>
@@ -230,14 +255,21 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                         </div>
 
                         {/* Register Button */}
-                        <button
-                          onClick={() => handleRegisterClick(dayTyped)}
-                          className={`w-full group flex items-center justify-center px-8 py-6 bg-gradient-to-r ${day.color.gradient} text-white font-bold text-xl rounded-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-${day.color.primary}-400/50 transition-all duration-300 shadow-2xl shadow-${day.color.primary}-400/25`}
-                        >
-                          <Target className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
-                          Register for {day.title}
-                          <ChevronRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
-                        </button>
+                        {isDay1Full ? (
+                          <div className="w-full flex items-center justify-center px-8 py-6 bg-gray-600 text-gray-400 font-bold text-xl rounded-2xl cursor-not-allowed opacity-50">
+                            <Target className="w-6 h-6 mr-3" />
+                            Registration Closed
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleRegisterClick(dayTyped)}
+                            className={`w-full group flex items-center justify-center px-8 py-6 bg-gradient-to-r ${day.color.gradient} text-white font-bold text-xl rounded-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-${day.color.primary}-400/50 transition-all duration-300 shadow-2xl shadow-${day.color.primary}-400/25`}
+                          >
+                            <Target className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
+                            Register for {day.title}
+                            <ChevronRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
