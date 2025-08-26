@@ -103,7 +103,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                 key={dayKey}
                 className={`cyber-card relative bg-gradient-to-br backdrop-blur-sm transition-all duration-700 transform hover:scale-105 ${
                   isDay1Full 
-                    ? 'from-red-800/60 to-red-900/80 border-red-500/50 opacity-75'
+                    ? 'from-yellow-800/60 to-orange-900/80 border-yellow-500/50'
                     : `from-gray-800/60 to-gray-900/80 ${isExpanded
                         ? `border-${day.color.primary}-400/50 shadow-2xl shadow-${day.color.primary}-400/20`
                         : 'border-gray-700 hover:border-gray-600'
@@ -112,13 +112,13 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
               >
                 {/* Card Header */}
                 <div 
-                  className={`p-8 ${isDay1Full ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                  onClick={() => !isDay1Full && handleDayClick(dayTyped)}
+                  className="p-8 cursor-pointer"
+                  onClick={() => handleDayClick(dayTyped)}
                 >
                   {/* Day 1 Full Banner */}
                   {isDay1Full && (
-                    <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      SEATS FULL
+                    <div className="absolute top-4 right-4 bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      New Registrations Closed
                     </div>
                   )}
                   
@@ -126,11 +126,11 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                     <div className="flex items-center space-x-4">
                       <div className={`p-4 rounded-xl shadow-lg ${
                         isDay1Full 
-                          ? 'bg-gray-600' 
+                          ? 'bg-gradient-to-r from-yellow-500 to-orange-500' 
                           : `bg-gradient-to-r ${day.color.gradient}`
                       }`}>
                         {dayKey === 'day1' ? (
-                          <Target className={`w-8 h-8 ${isDay1Full ? 'text-gray-400' : 'text-white'}`} />
+                          <Target className={`w-8 h-8 text-white`} />
                         ) : (
                           <Shield className="w-8 h-8 text-white" />
                         )}
@@ -138,22 +138,28 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                       <div>
                         <h3 className={`text-3xl font-bold mb-2 ${
                           isDay1Full 
-                            ? 'text-red-400' 
+                            ? 'text-yellow-400' 
                             : `text-${day.color.primary}-400`
                         }`}>
                           {day.title}
                           {isDay1Full && (
-                            <span className="ml-3 text-lg text-red-300">(CLOSED)</span>
+                            <span className="ml-3 text-lg text-yellow-300">(Finish payment)</span>
                           )}
                         </h3>
                         <p className={`text-lg ${
-                          isDay1Full ? 'text-gray-500' : 'text-gray-400'
+                          isDay1Full ? 'text-yellow-200' : 'text-gray-400'
                         }`}>{day.subtitle}</p>
                       </div>
                     </div>
-                    {!isDay1Full && (
+                    {!isDay1Full ? (
                       <ChevronRight 
                         className={`w-6 h-6 text-${day.color.primary}-400 transition-transform duration-300 ${
+                          isExpanded ? 'rotate-90' : ''
+                        }`} 
+                      />
+                    ) : (
+                      <ChevronRight 
+                        className={`w-6 h-6 text-yellow-400 transition-transform duration-300 ${
                           isExpanded ? 'rotate-90' : ''
                         }`} 
                       />
@@ -163,26 +169,26 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                   {/* Basic Info */}
                   <div className="grid md:grid-cols-3 gap-4 mb-6">
                     <div className={`flex items-center space-x-2 ${
-                      isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                      isDay1Full ? 'text-yellow-200' : 'text-gray-300'
                     }`}>
                       <Calendar className={`w-5 h-5 ${
-                        isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                        isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
                       }`} />
                       <span className="font-medium">{day.date}</span>
                     </div>
                     <div className={`flex items-center space-x-2 ${
-                      isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                      isDay1Full ? 'text-yellow-200' : 'text-gray-300'
                     }`}>
                       <Clock className={`w-5 h-5 ${
-                        isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                        isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
                       }`} />
                       <span className="font-medium">{day.time}</span>
                     </div>
                     <div className={`flex items-center space-x-2 ${
-                      isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                      isDay1Full ? 'text-yellow-200' : 'text-gray-300'
                     }`}>
                       <Users className={`w-5 h-5 ${
-                        isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                        isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
                       }`} />
                       <span className="font-medium">
                         {isDay1Full ? 'SEATS FULL' : day.capacity}
@@ -191,26 +197,26 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                   </div>
 
                   <p className={`text-lg leading-relaxed ${
-                    isDay1Full ? 'text-gray-500' : 'text-gray-300'
+                    isDay1Full ? 'text-yellow-200' : 'text-gray-300'
                   }`}>
                     {isDay1Full 
-                      ? "Day 1 CTF Championship has reached maximum capacity. Registration is now closed." 
+                      ? "Registration closed for new participants. If you registered and chose 'Pay Later' option, complete your payment to secure your spot." 
                       : day.description
                     }
                   </p>
 
                   <div className={`mt-4 inline-flex items-center px-4 py-2 rounded-full border ${
                     isDay1Full 
-                      ? 'bg-red-400/20 border-red-400/30' 
+                      ? 'bg-yellow-400/20 border-yellow-400/30' 
                       : `bg-${day.color.primary}-400/20 border-${day.color.primary}-400/30`
                   }`}>
                     <Zap className={`w-4 h-4 mr-2 ${
-                      isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                      isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
                     }`} />
                     <span className={`font-semibold text-sm ${
-                      isDay1Full ? 'text-red-400' : `text-${day.color.primary}-400`
+                      isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
                     }`}>
-                      {isDay1Full ? 'Registration Closed' : day.highlight}
+                      {isDay1Full ? 'SEATS FULL' : day.highlight}
                     </span>
                   </div>
                 </div>
@@ -256,10 +262,14 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
 
                         {/* Register Button */}
                         {isDay1Full ? (
-                          <div className="w-full flex items-center justify-center px-8 py-6 bg-gray-600 text-gray-400 font-bold text-xl rounded-2xl cursor-not-allowed opacity-50">
-                            <Target className="w-6 h-6 mr-3" />
-                            Registration Closed
-                          </div>
+                          <button
+                            onClick={() => handleRegisterClick(dayTyped)}
+                            className="w-full group flex items-center justify-center px-8 py-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold text-xl rounded-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 transition-all duration-300 shadow-2xl shadow-yellow-400/25"
+                          >
+                            <Target className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
+                            Payment Instructions
+                            <ChevronRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                          </button>
                         ) : (
                           <button
                             onClick={() => handleRegisterClick(dayTyped)}

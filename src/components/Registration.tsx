@@ -29,6 +29,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const [day2RegistrationCount, setDay2RegistrationCount] = useState<number | null>(null);
   const [isDay2RegistrationClosed, setIsDay2RegistrationClosed] = useState(false);
   const [isCheckingLimit, setIsCheckingLimit] = useState(false);
+  const [showDay1PaymentSteps, setShowDay1PaymentSteps] = useState(false);
 
   const DAY2_REGISTRATION_LIMIT = 300;
   const DAY1_REGISTRATION_CLOSED = true; // Day 1 is now closed
@@ -301,35 +302,149 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
           {/* Main Form - Spans 8 columns */}
           <div className="lg:col-span-8">
 
-            {/* Render sequence: Day1 closed notice -> Day1 instruction panel -> AlreadyRegistered notice -> Form */}
-            { (selectedDay === 'day1' || selectedDay === 'both') && DAY1_REGISTRATION_CLOSED && (
-              <div className="cyber-card p-8 bg-gradient-to-br from-red-800/40 to-red-900/60 border border-red-500/50 rounded-2xl backdrop-blur-sm">
+            {/* Day 1 Registration Closed Notice with Simple Message */}
+            { (selectedDay === 'day1' || selectedDay === 'both') && DAY1_REGISTRATION_CLOSED && !showDay1PaymentSteps && (
+              <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-emerald-400/30 rounded-2xl backdrop-blur-sm">
                 <div className="text-center">
-                  <AlertCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold text-red-400 mb-4">Day 1 Registration Closed</h3>
+                  <AlertCircle className="w-16 h-16 text-emerald-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-emerald-400 mb-6">Day 1: CTF Championship</h3>
+                  
+                  <p className="text-xl text-gray-300 mb-6">
+                    Registrations are now closed
+                  </p>
+                  
+                  <p className="text-gray-300 mb-8">
+                    If you had registered and chose pay later, please click here.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <button
+                      onClick={() => setShowDay1PaymentSteps(true)}
+                      className="px-8 py-4 bg-emerald-400 text-black rounded-lg font-semibold hover:bg-emerald-300 transition-colors duration-300 text-lg"
+                    >
+                      Show Payment Instructions
+                    </button>
+                    
+                    <div className="flex justify-center space-x-4">
+                      {selectedDay === 'both' && (
+                        <button
+                          onClick={() => window.location.reload()}
+                          className="px-6 py-3 bg-cyan-400 text-black rounded-lg font-semibold hover:bg-cyan-300 transition-colors duration-300"
+                        >
+                          Register for Day 2 Only
+                        </button>
+                      )}
+                      <button 
+                        onClick={onBack} 
+                        className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
+                      >
+                        Back to Day Selection
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Day 1 Payment Steps - Shown when clicked */}
+            { (selectedDay === 'day1' || selectedDay === 'both') && DAY1_REGISTRATION_CLOSED && showDay1PaymentSteps && (
+              <div className="cyber-card p-8 bg-gradient-to-br from-gray-800/40 to-gray-900/60 border border-emerald-400/30 rounded-2xl backdrop-blur-sm">
+                <div className="text-center mb-8">
+                  <AlertCircle className="w-16 h-16 text-emerald-400 mx-auto mb-4" />
+                  <h3 className="text-2xl font-bold text-emerald-400 mb-4">Complete Your Day 1 Payment</h3>
+                </div>
+                
+                {/* Payment Instructions */}
+                <div className="bg-emerald-400/10 border border-emerald-400/20 rounded-xl p-6 mb-6">
+                  <h4 className="text-xl font-bold text-emerald-400 mb-4">Payment Instructions</h4>
                   <p className="text-gray-300 mb-4">
-                    Day 1: CTF Championship has reached maximum capacity and registration is now closed.
+                    Follow these steps to complete your Day 1 CTF Championship registration:
                   </p>
-                  <p className="text-gray-300 mb-6">
-                    Thank you for your interest in the CTF Championship!
+                  
+                  <div className="space-y-4 text-left">
+                    <div className="flex items-start space-x-3">
+                      <span className="flex-shrink-0 w-6 h-6 bg-emerald-400 text-black rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                      <div>
+                        <p className="text-gray-300">Visit VIT Chennai Event Hub and log in with your existing account</p>
+                        <a href="https://eventhubcc.vit.ac.in/EventHub/login" className="text-cyan-300 underline hover:text-cyan-200" target="_blank" rel="noopener noreferrer">
+                          eventhubcc.vit.ac.in/EventHub/login
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-center my-6">
+                      <img
+                        src="/signup.png"
+                        alt="VIT Event Hub Login"
+                        className="max-w-full h-auto rounded-lg border border-emerald-400/30"
+                      />
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <span className="flex-shrink-0 w-6 h-6 bg-emerald-400 text-black rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                      <div>
+                        <p className="text-gray-300">Navigate to your Profile and select registered events and complete the payment for CyberConverge</p>
+                        <a href="https://eventhubcc.vit.ac.in/EventHub/profile" className="text-cyan-300 underline hover:text-cyan-200" target="_blank" rel="noopener noreferrer">
+                          Complete Payment Here
+                        </a>
+                        <img
+                        src="/pay.png"
+                        alt="VIT Event Hub Login"
+                        className="max-w-full h-auto rounded-lg border border-emerald-400/30"
+                      />
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start space-x-3">
+                      <span className="flex-shrink-0 w-6 h-6 bg-emerald-400 text-black rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                      <p className="text-gray-300">
+                        Payment deadline: <span className="text-emerald-400 font-semibold">August 27, 2025 (11:59 PM)</span>
+                      </p>
+                    </div>
+                    
+                    <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4 mt-4">
+                      <p className="text-yellow-300 text-sm">
+                        <strong>⚠️ Important:</strong> Registrations without completed payment will be automatically cancelled after the deadline.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Contact Support */}
+                <div className="bg-gray-800/50 border border-gray-600 rounded-xl p-4 mb-6">
+                  <h5 className="text-lg font-semibold text-white mb-2">Need Help?</h5>
+                  <p className="text-gray-300 text-sm mb-2">
+                    If you face any issues with payment or have questions about your registration:
                   </p>
-                  {selectedDay === 'both' && (
-                    <div className="mb-6">
-                      <p className="text-gray-300 mb-4">You can still register for Day 2:</p>
+                  <p className="text-cyan-300">
+                    Contact us on WhatsApp: <span className="font-mono">+91 93243 84817</span>
+                  </p>
+                </div>
+
+                <div className="text-center space-y-4">
+                  <button
+                    onClick={() => setShowDay1PaymentSteps(false)}
+                    className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors duration-300"
+                  >
+                    ← Back to Main Message
+                  </button>
+                  
+                  <div className="flex justify-center space-x-4">
+                    {selectedDay === 'both' && (
                       <button
-                        onClick={() => window.location.reload()} // This will reset to day selection
+                        onClick={() => window.location.reload()}
                         className="px-6 py-3 bg-cyan-400 text-black rounded-lg font-semibold hover:bg-cyan-300 transition-colors duration-300"
                       >
                         Register for Day 2 Only
                       </button>
-                    </div>
-                  )}
-                  <button 
-                    onClick={onBack} 
-                    className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
-                  >
-                    Back to Day Selection
-                  </button>
+                    )}
+                    <button 
+                      onClick={onBack} 
+                      className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300"
+                    >
+                      Back to Day Selection
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
