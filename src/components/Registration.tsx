@@ -31,7 +31,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
   const [isCheckingLimit, setIsCheckingLimit] = useState(false);
   const [showDay1PaymentSteps, setShowDay1PaymentSteps] = useState(false);
 
-  const DAY2_REGISTRATION_LIMIT = 300;
+  const DAY2_REGISTRATION_LIMIT = 315;
   const DAY1_REGISTRATION_CLOSED = true; // Day 1 is now closed
 
   // Check day 2 registration count on component mount
@@ -509,16 +509,11 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                   <AlertCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
                   <h3 className="text-2xl font-bold text-red-400 mb-4">Day 2 Registration Closed</h3>
                   <p className="text-gray-300 mb-4">
-                    We've reached the maximum capacity of {DAY2_REGISTRATION_LIMIT} participants for Day 2: Cyber Security Summit.
+                    We've reached the maximum capacity of participants for Day 2.
                   </p>
                   <p className="text-gray-300 mb-6">
                     Registration for this day is now closed. Thank you for your interest!
                   </p>
-                  <div className="bg-red-400/10 border border-red-400/20 rounded-xl p-4 mb-6">
-                    <p className="text-red-300 text-sm">
-                      <strong>Current registrations:</strong> {day2RegistrationCount || DAY2_REGISTRATION_LIMIT} / {DAY2_REGISTRATION_LIMIT}
-                    </p>
-                  </div>
                   {selectedDay === 'both' && (
                     <div className="mb-6">
                       <p className="text-gray-300 mb-4">You can still register for Day 1:</p>
@@ -788,7 +783,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                     </div>
                     {day2RegistrationCount !== null && !isDay2RegistrationClosed && (
                       <div className="text-xs text-gray-400 mt-1">
-                        {day2RegistrationCount} / {DAY2_REGISTRATION_LIMIT} registered
+                        
                       </div>
                     )}
                   </div>
