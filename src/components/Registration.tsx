@@ -776,7 +776,7 @@ const Registration: React.FC<RegistrationProps> = ({ selectedDay, onBack }) => {
                 {(selectedDay === 'day2' || selectedDay === 'both') ? (
                   <div className={`text-center p-4 rounded-xl ${isDay2RegistrationClosed ? 'bg-red-400/10' : 'bg-emerald-400/10'}`}>
                     <div className={`text-3xl font-black ${isDay2RegistrationClosed ? 'text-red-400' : 'text-emerald-400'}`}>
-                      {day2RegistrationCount !== null ? `${DAY2_REGISTRATION_LIMIT - (day2RegistrationCount || 0)}` : '...'}
+                      {day2RegistrationCount !== null ? `0` : '...'}
                     </div>
                     <div className={`text-sm ${isDay2RegistrationClosed ? 'text-red-400' : 'text-emerald-400'}`}>
                       {isDay2RegistrationClosed ? 'Registration Closed' : 'Spots Remaining (Day 2)'}
