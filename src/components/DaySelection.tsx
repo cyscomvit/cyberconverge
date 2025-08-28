@@ -96,29 +96,32 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
           {Object.entries(dayDetails).map(([dayKey, day]) => {
             const isExpanded = expandedDay === dayKey;
             const dayTyped = dayKey as 'day1' | 'day2';
-            const isDay1Full = dayKey === 'day1'; // Day 1 is now full
+            const isDay1Full = dayKey === 'day1';
+            const isDay2Unclickable = dayKey === 'day2';
             
             return (
               <div
                 key={dayKey}
-                className={`cyber-card relative bg-gradient-to-br backdrop-blur-sm transition-all duration-700 transform hover:scale-105 ${
-                  isDay1Full 
-                    ? 'from-yellow-800/60 to-orange-900/80 border-yellow-500/50'
-                    : `from-gray-800/60 to-gray-900/80 ${isExpanded
-                        ? `border-${day.color.primary}-400/50 shadow-2xl shadow-${day.color.primary}-400/20`
-                        : 'border-gray-700 hover:border-gray-600'
-                      }`
+                className={`cyber-card relative bg-gradient-to-br backdrop-blur-sm transition-all duration-700 transform ${
+                  isDay1Full
+                    ? 'from-gray-700 to-gray-900 border-gray-600 opacity-60 cursor-not-allowed pointer-events-none'
+                    : isDay2Unclickable
+                      ? 'from-cyan-900 to-cyan-950 border-cyan-700 opacity-80 cursor-not-allowed pointer-events-none'
+                      : `hover:scale-105 from-gray-800/60 to-gray-900/80 ${isExpanded
+                          ? `border-${day.color.primary}-400/50 shadow-2xl shadow-${day.color.primary}-400/20`
+                          : 'border-gray-700 hover:border-gray-600'
+                        }`
                 } border rounded-3xl ${isExpanded ? 'lg:col-span-2' : ''}`}
               >
                 {/* Card Header */}
                 <div 
-                  className="p-8 cursor-pointer"
-                  onClick={() => handleDayClick(dayTyped)}
+                  className={`p-8 ${isDay1Full || isDay2Unclickable ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                  // Remove all click handlers for both days
                 >
                   {/* Day 1 Full Banner */}
                   {isDay1Full && (
-                    <div className="absolute top-4 right-4 bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      New Registrations Closed
+                    <div className="absolute top-4 right-4 bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      CLOSED
                     </div>
                   )}
                   
@@ -126,69 +129,59 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                     <div className="flex items-center space-x-4">
                       <div className={`p-4 rounded-xl shadow-lg ${
                         isDay1Full 
-                          ? 'bg-gradient-to-r from-yellow-500 to-orange-500' 
+                          ? 'bg-gray-600' 
                           : `bg-gradient-to-r ${day.color.gradient}`
                       }`}>
                         {dayKey === 'day1' ? (
-                          <Target className={`w-8 h-8 text-white`} />
+                          <Target className={`w-8 h-8 text-gray-400`} />
                         ) : (
-                          <Shield className="w-8 h-8 text-white" />
+                          <Shield className="w-8 h-8 text-cyan-700" />
                         )}
                       </div>
                       <div>
                         <h3 className={`text-3xl font-bold mb-2 ${
-                          isDay1Full 
-                            ? 'text-yellow-400' 
-                            : `text-${day.color.primary}-400`
+                          isDay1Full
+                            ? 'text-gray-400'
+                            : isDay2Unclickable
+                              ? 'text-cyan-400'
+                              : `text-${day.color.primary}-400`
                         }`}>
                           {day.title}
                           {isDay1Full && (
-                            <span className="ml-3 text-lg text-yellow-300">(Finish payment)</span>
+                            <span className="ml-3 text-lg text-gray-300">(CLOSED)</span>
                           )}
                         </h3>
                         <p className={`text-lg ${
-                          isDay1Full ? 'text-yellow-200' : 'text-gray-400'
+                          isDay1Full ? 'text-gray-500' : isDay2Unclickable ? 'text-cyan-300' : 'text-gray-400'
                         }`}>{day.subtitle}</p>
                       </div>
                     </div>
-                    {!isDay1Full ? (
-                      <ChevronRight 
-                        className={`w-6 h-6 text-${day.color.primary}-400 transition-transform duration-300 ${
-                          isExpanded ? 'rotate-90' : ''
-                        }`} 
-                      />
-                    ) : (
-                      <ChevronRight 
-                        className={`w-6 h-6 text-yellow-400 transition-transform duration-300 ${
-                          isExpanded ? 'rotate-90' : ''
-                        }`} 
-                      />
-                    )}
+                    {/* No chevron for either day */}
                   </div>
 
                   {/* Basic Info */}
                   <div className="grid md:grid-cols-3 gap-4 mb-6">
                     <div className={`flex items-center space-x-2 ${
-                      isDay1Full ? 'text-yellow-200' : 'text-gray-300'
+                      isDay1Full ? 'text-gray-500' : isDay2Unclickable ? 'text-cyan-300' : 'text-gray-300'
                     }`}>
                       <Calendar className={`w-5 h-5 ${
-                        isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
+                        isDay1Full ? 'text-gray-400' : isDay2Unclickable ? 'text-cyan-400' : `text-${day.color.primary}-400`
                       }`} />
                       <span className="font-medium">{day.date}</span>
                     </div>
                     <div className={`flex items-center space-x-2 ${
-                      isDay1Full ? 'text-yellow-200' : 'text-gray-300'
+                      isDay1Full ? 'text-gray-500' : isDay2Unclickable ? 'text-cyan-300' : 'text-gray-300'
                     }`}>
                       <Clock className={`w-5 h-5 ${
-                        isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
+                        isDay1Full ? 'text-gray-400' : isDay2Unclickable ? 'text-cyan-400' : `text-${day.color.primary}-400`
                       }`} />
                       <span className="font-medium">{day.time}</span>
                     </div>
                     <div className={`flex items-center space-x-2 ${
-                      isDay1Full ? 'text-yellow-200' : 'text-gray-300'
+                      isDay1Full ? 'text-gray-500' : isDay2Unclickable ? 'text-cyan-300' : 'text-gray-300'
                     }`}>
                       <Users className={`w-5 h-5 ${
-                        isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
+                        isDay1Full ? 'text-gray-400' : isDay2Unclickable ? 'text-cyan-400' : `text-${day.color.primary}-400`
                       }`} />
                       <span className="font-medium">
                         {isDay1Full ? 'SEATS FULL' : day.capacity}
@@ -196,29 +189,30 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                     </div>
                   </div>
 
-                  <p className={`text-lg leading-relaxed ${
-                    isDay1Full ? 'text-yellow-200' : 'text-gray-300'
-                  }`}>
-                    {isDay1Full 
-                      ? "Registration closed for new participants. If you registered and chose 'Pay Later' option, complete your payment to secure your spot." 
-                      : day.description
-                    }
-                  </p>
+                  {isDay1Full ? (
+                    <>
+                      <p className="text-lg leading-relaxed text-gray-500 text-center">
+                        Registrations are now closed
+                      </p>
+                    </>
+                  ) : isDay2Unclickable ? (
+                    <>
+                      <p className="text-lg leading-relaxed text-cyan-300 text-center">
+                        On spot registration available from <span className="font-bold">8:30 AM</span> at <span className="font-bold">Kamraj Auditorium</span>
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className={`text-lg leading-relaxed text-gray-300`}>
+                        {day.description}
+                      </p>
 
-                  <div className={`mt-4 inline-flex items-center px-4 py-2 rounded-full border ${
-                    isDay1Full 
-                      ? 'bg-yellow-400/20 border-yellow-400/30' 
-                      : `bg-${day.color.primary}-400/20 border-${day.color.primary}-400/30`
-                  }`}>
-                    <Zap className={`w-4 h-4 mr-2 ${
-                      isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
-                    }`} />
-                    <span className={`font-semibold text-sm ${
-                      isDay1Full ? 'text-yellow-400' : `text-${day.color.primary}-400`
-                    }`}>
-                      {isDay1Full ? 'SEATS FULL' : day.highlight}
-                    </span>
-                  </div>
+                      <div className={`mt-4 inline-flex items-center px-4 py-2 rounded-full border bg-${day.color.primary}-400/20 border-${day.color.primary}-400/30`}>
+                        <Zap className={`w-4 h-4 mr-2 text-${day.color.primary}-400`} />
+                        <span className={`font-semibold text-sm text-${day.color.primary}-400`}>{day.highlight}</span>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* Expanded Content */}
@@ -261,25 +255,7 @@ const DaySelection: React.FC<DaySelectionProps> = ({ onDaySelect }) => {
                         </div>
 
                         {/* Register Button */}
-                        {isDay1Full ? (
-                          <button
-                            onClick={() => handleRegisterClick(dayTyped)}
-                            className="w-full group flex items-center justify-center px-8 py-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold text-xl rounded-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-400/50 transition-all duration-300 shadow-2xl shadow-yellow-400/25"
-                          >
-                            <Target className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
-                            Payment Instructions
-                            <ChevronRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handleRegisterClick(dayTyped)}
-                            className={`w-full group flex items-center justify-center px-8 py-6 bg-gradient-to-r ${day.color.gradient} text-white font-bold text-xl rounded-2xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-${day.color.primary}-400/50 transition-all duration-300 shadow-2xl shadow-${day.color.primary}-400/25`}
-                          >
-                            <Target className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" />
-                            Register for {day.title}
-                            <ChevronRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
-                          </button>
-                        )}
+                        {/* No register button for either day */}
                       </div>
                     </div>
                   </div>
